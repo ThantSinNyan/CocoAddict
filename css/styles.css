@@ -92,6 +92,7 @@ body.is-loaded #loader {
   padding: 1.6rem 1.6rem 1.4rem;
   transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
   overflow: hidden;
+  height: 100%;
 }
 .menu-card:hover {
   transform: translateY(-4px);
@@ -132,6 +133,7 @@ body.is-loaded #loader {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: .5rem;
   margin-top: 1.1rem;
+  align-items: stretch;
 }
 .price-row.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .price-row.cols-1 { grid-template-columns: minmax(0, 1fr); }
@@ -165,6 +167,78 @@ body.is-loaded #loader {
   font-weight: 600;
   color: #2C5643;
   margin-top: 2px;
+}
+
+/* ---------- Drink cards ---------- */
+.menu-card.drink-card {
+  padding: 0;
+}
+
+.drink-card-body {
+  min-height: 280px;
+  height: 100%;
+  padding: 1.6rem;
+}
+
+.drink-card-copy {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.drink-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  flex: 1;
+}
+
+.drink-card-text {
+  min-width: 0;
+  flex: 1;
+}
+
+.drink-card-text .menu-name {
+  max-width: 18rem;
+}
+
+.drink-card-media {
+  width: 112px;
+  min-width: 112px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.drink-card-media-frame,
+.drink-card-placeholder {
+  width: 112px;
+  height: 168px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #F8FBF9 0%, #EAF4EE 100%);
+  border: 1px solid #E2F0E8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.drink-real-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.drink-price-row {
+  margin-top: 1.35rem;
+}
+
+.drink-price-row .price-pill {
+  min-height: 84px;
+  border-radius: 18px;
+  background: #FBFDFC;
 }
 
 /* emphasis driven by data-mode on grid */
@@ -335,6 +409,28 @@ body.is-loaded #loader {
 }
 
 @media (max-width: 480px) {
+  .drink-card-body {
+    min-height: 250px;
+    padding: 1.25rem;
+  }
+
+  .drink-card-header {
+    gap: .75rem;
+  }
+
+  .drink-card-media,
+  .drink-card-media-frame,
+  .drink-card-placeholder {
+    width: 92px;
+    min-width: 92px;
+    height: 138px;
+  }
+
+  .drink-card-text .menu-name {
+    max-width: none;
+    font-size: 1.08rem;
+  }
+
   .food-card-img-wrap { width: 100px; }
 }
 

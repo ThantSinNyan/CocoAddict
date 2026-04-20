@@ -244,31 +244,46 @@
       </div>`;
   }
 
+  function drinkMedia(item) {
+    const fallback = `<div class="drink-card-placeholder">${drinkSVG(randomLiquid(item.name), 'h-16 w-16')}</div>`;
+    if (!item.img) return fallback;
+    return `
+      <div class="drink-card-media-frame">
+        <img src="${item.img}" alt="${item.name}"
+             class="drink-real-img"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+        <div class="drink-card-placeholder" style="display:none">${drinkSVG(randomLiquid(item.name), 'h-16 w-16')}</div>
+      </div>`;
+  }
+
   function menuCard(item, catKey, catLabel) {
-    // triple-price drink (coffee / tea / others)
+    // unified drink layout
     if ('hot' in item || 'iced' in item || 'coco' in item) {
-      const pillCount =
-        (item.coco !== undefined ? 3 : 2);
-      const cols = pillCount === 3 ? '' : 'cols-2';
       return `
-        <article class="menu-card reveal" data-cat="${catKey}">
-          <div class="flex items-start justify-between gap-3">
-            <div>
-              <p class="menu-cat-label">${catLabel}</p>
-              <h3 class="menu-name mt-1">${item.name}</h3>
-              <p class="menu-thai">${item.thai}</p>
+        <article class="menu-card drink-card reveal" data-cat="${catKey}">
+          <div class="drink-card-body">
+            <div class="drink-card-copy">
+              <div class="drink-card-header">
+                <div class="drink-card-text">
+                  <p class="menu-cat-label">${catLabel}</p>
+                  <h3 class="menu-name mt-1">${item.name}</h3>
+                  <p class="menu-thai">${item.thai}</p>
+                </div>
+                <div class="drink-card-media">
+                  ${drinkMedia(item)}
+                </div>
+              </div>
+              <div class="price-row drink-price-row">
+                ${tempPill('Hot', 'hot', item.hot)}
+                ${tempPill('Iced', 'iced', item.iced)}
+                ${tempPill('Coco-Iced', 'coco', item.coco)}
+              </div>
             </div>
-            <div class="opacity-80">${drinkSVG(randomLiquid(item.name), 'h-16 w-16')}</div>
-          </div>
-          <div class="price-row ${cols}">
-            ${tempPill('Hot',  'hot',  item.hot)}
-            ${tempPill('Iced', 'iced', item.iced)}
-            ${item.coco !== undefined ? tempPill('Coco · Iced', 'coco', item.coco) : ''}
           </div>
         </article>`;
     }
 
-    // flat-price item (smoothie / slushy / food / ice cream)
+    // flat-price item (food / ice cream)
     const isIceCream = catKey === 'iceCream';
     const isFoodCategory = ['toast', 'bakery', 'dessert', 'salad', 'sandwich'].includes(catKey);
     const icon = isIceCream

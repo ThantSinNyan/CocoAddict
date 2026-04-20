@@ -66,17 +66,17 @@ window.COCO_MENU = {
     label: 'Smoothie',
     note: 'เครื่องดื่มปั่น',
     items: [
-      { name: 'Coconut Smoothie with Fresh Milk', thai: 'มะพร้าวปั่นนมสด', flat: 99, img: wongnaiPhoto('90023c76782142b38e0c0095fa6c4154.jpg') },
-      { name: 'Fresh Orange Blended', thai: 'น้ำส้มคั้นสดปั่น', flat: 99 },
-      { name: 'Fresh Lemon Blended', thai: 'น้ำมะนาวคั้นสดปั่น', flat: 99 }
+      { name: 'Coconut Smoothie with Fresh Milk', thai: 'มะพร้าวปั่นนมสด', hot: null, iced: 99, coco: null, img: wongnaiPhoto('90023c76782142b38e0c0095fa6c4154.jpg') },
+      { name: 'Fresh Orange Blended', thai: 'น้ำส้มคั้นสดปั่น', hot: null, iced: 99, coco: null },
+      { name: 'Fresh Lemon Blended', thai: 'น้ำมะนาวคั้นสดปั่น', hot: null, iced: 99, coco: null }
     ]
   },
   slushy: {
     label: 'Slushy',
     note: 'เครื่องดื่มเกล็ดน้ำแข็ง',
     items: [
-      { name: 'Thai Milk Tea Ice Flakes', thai: 'ชาไทยนมเกล็ดน้ำแข็ง', flat: 99, img: wongnaiPhoto('3c3ad580e15947d6b77dde8b2b24ed57.jpg') },
-      { name: 'Butterfly Pea Lemon Soda Ice Flakes', thai: 'อัญชันมะนาวโซดาเกล็ดน้ำแข็ง', flat: 99, img: wongnaiPhoto('82e32df6565f432386c72ef206b3d58b.jpg') }
+      { name: 'Thai Milk Tea Ice Flakes', thai: 'ชาไทยนมเกล็ดน้ำแข็ง', hot: null, iced: 99, coco: null, img: wongnaiPhoto('3c3ad580e15947d6b77dde8b2b24ed57.jpg') },
+      { name: 'Butterfly Pea Lemon Soda Ice Flakes', thai: 'อัญชันมะนาวโซดาเกล็ดน้ำแข็ง', hot: null, iced: 99, coco: null, img: wongnaiPhoto('82e32df6565f432386c72ef206b3d58b.jpg') }
     ]
   },
   iceCream: {
@@ -108,11 +108,11 @@ window.COCO_MENU = {
     label: 'Crispy Salad',
     note: 'สลัดอบกรอบ',
     items: [
-      { name: 'Original Kale Crisps', thai: 'เคล อบกรอบ รสออริจินัล', flat: 100 },
-      { name: 'Sriracha Mayo Kale Crisps', thai: 'เคล อบกรอบ รสศรีราชา เมโย', flat: 100 },
-      { name: 'Original Zucchini Crisps', thai: 'ซูกินี อบกรอบ รสออริจินัล', flat: 75 },
-      { name: 'Sriracha Mayo Zucchini Crisps', thai: 'ซูกินี อบกรอบ รสศรีราชา เมโย', flat: 75 },
-      { name: 'Caesar Cos Crisps', thai: 'คอส อบกรอบ รสซีซ่าสลัด', flat: 95 }
+      { name: 'Crispy Kale, Original Flavor', thai: 'เคล อบกรอบ รสออริจินัล', flat: 100, img: wongnaiPhoto('2fe7958d7e964f0eb417b92f181fbefa.jpg') },
+      { name: 'Crispy Baked Chips with Sriracha Mayo Flavor', thai: 'เคล อบกรอบ รสศรีราชา เมโย', flat: 100, img: wongnaiPhoto('5057a7aa49bb44d1843f3fc127bab7cc.jpg') },
+      { name: 'Crispy Baked Zucchini, Original Flavor', thai: 'ซูกินี อบกรอบ รสออริจินัล', flat: 75, img: wongnaiPhoto('2cb3bd6343094599880f0248e1523087.jpg') },
+      { name: 'Crispy Zucchini with Sriracha Mayo Flavor', thai: 'ซูกินี อบกรอบ รสศรีราชา เมโย', flat: 75, img: wongnaiPhoto('e7422a98dbbe4d1795559532186d3b0c.jpg') },
+      { name: 'Crispy Cos Ros Cereal with Caesar Salad Flavor', thai: 'คอส อบกรอบ รสซีซ่าสลัด', flat: 95, img: wongnaiPhoto('a1f69c13552f4dd2b09e3b51eff17bf1.jpg') }
     ]
   },
   sandwich: {
@@ -128,30 +128,30 @@ window.COCO_MENU = {
     items: [
       { name: 'BM Butter Milk Bread', thai: 'ปังเนยนม', flat: 39, img: wongnaiPhoto('1f4e12252dec4cf4891a58b07ab061b4.jpg') },
       { name: 'BS Butter Sugar Bread', thai: 'ปังเนยน้ำตาล', flat: 39, img: wongnaiPhoto('9af3f3af232848b0954d87345be49194.jpg') },
-      { name: 'OV Ovaltine Volcano', thai: 'ปังโอวันตินภูเขาไฟ', flat: 55, img: wongnaiPhoto('6e72f648018846eaabf0591aa11002d1.jpg') },
+      { name: 'OV Ovaltine Volcano Bread', thai: 'ปังโอวันตินภูเขาไฟ', flat: 55, img: wongnaiPhoto('6e72f648018846eaabf0591aa11002d1.jpg') },
       { name: 'NU Nutella Bread', thai: 'ปังนูเทลล่า', flat: 69, img: wongnaiPhoto('c8ca6265dac141e3949ef1e1b70e775c.jpg') },
-      { name: 'CP Chili Paste Pork & Chicken Floss Bread', thai: 'ปังพริกเผาหมู+ไก่หยอง', flat: 55 },
+      { name: 'CP Spicy Pork and Chicken Floss Bread', thai: 'ปังพริกเผาหมู+ไก่หยอง', flat: 55 },
       { name: 'PJ Pandan Custard Bread', thai: 'ปังสังขยาใบเตย', flat: 69, img: wongnaiPhoto('84aba55d24514492a958584498bccf69.jpg') },
-      { name: 'TJ Thai Tea Custard Bread', thai: 'ปังสังขยาชาไทย', flat: 69, img: wongnaiPhoto('e763be4193a7467093444dd24fa3fe08.jpg') },
+      { name: "TJ's Thai Tea Custard Bread", thai: 'ปังสังขยาชาไทย', flat: 69, img: wongnaiPhoto('e763be4193a7467093444dd24fa3fe08.jpg') },
       { name: 'PTB Peanut Butter Bread', thai: 'ปังเนยถั่ว', flat: 69, img: wongnaiPhoto('5458012f457749f6bf4973f87caafb62.jpg') },
       { name: 'NUB Nutella Banana Bread', thai: 'ปังนูเทลล่ากล้วย', flat: 79, img: wongnaiPhoto('97c6304fc84c4fd5a206947c27268541.jpg') }
     ]
   },
   bakery: {
-    label: 'Warm Baked Bakery',
+    label: 'Warm Baked Bakery - Hot Baked Bread',
     note: 'ขนมปังอบร้อน',
     items: [
-      { name: 'CHC Ham & Cheese Croissant', thai: 'ครัวซองต์ แฮมชีส', flat: 129, img: wongnaiPhoto('ad072a7f060d43faa3f5e46d86ffe2a5.jpg') },
+      { name: 'CHC Croissant Ham and Cheese', thai: 'ครัวซองต์ แฮมชีส', flat: 129, img: wongnaiPhoto('ad072a7f060d43faa3f5e46d86ffe2a5.jpg') },
       { name: 'CA Almond Croissant', thai: 'ครัวซองต์ อัลมอนด์', flat: 129, img: wongnaiPhoto('d9c502fa92fb457bbfeccaa47cc3aee9.jpg') },
-      { name: 'CCP Coffee Pecan Croissant', thai: 'ครัวซองต์ กาแฟ พีแคน', flat: 129, img: wongnaiPhoto('15c83c39b1bd4254b6a061b3757de885.jpg') },
+      { name: 'CCP Croissant, Coffee, Pecan', thai: 'ครัวซองต์ กาแฟ พีแคน', flat: 129, img: wongnaiPhoto('15c83c39b1bd4254b6a061b3757de885.jpg') },
       { name: 'BN Brioche Nutella', thai: 'บริยอช นูเทลล่า', flat: 129, img: wongnaiPhoto('20145d9e79ff459caeb00477cd23ab00.jpg') },
       { name: 'DC Danish Cream Cheese', thai: 'เดนิช ครีมชีส', flat: 119, img: wongnaiPhoto('da865cce0aa44a8bb525260e67c0bb88.jpg') },
       { name: 'PAC Chocolate Bread', thai: 'ขนมปังช็อคโกแลต', flat: 119, img: wongnaiPhoto('9b7dac7bc3dc43c58955090e767cdce3.jpg') },
       { name: 'PAR Raisin Bread', thai: 'ขนมปังลูกเกด', flat: 119, img: wongnaiPhoto('d8bf0488a5d24cbfa9798986590d72e3.jpg') },
-      { name: 'SP Shio Pan', thai: 'ชิโอะปัง ขนมปังเกลือ', flat: 69, img: wongnaiPhoto('b6f943233333485185dcd914178d6634.jpg') },
+      { name: 'SP Shio Pan (Salted Bread)', thai: 'ชิโอะปัง ขนมปังเกลือ', flat: 69, img: wongnaiPhoto('b6f943233333485185dcd914178d6634.jpg') },
       { name: 'FB Fudge Brownies', thai: 'บราวนี่ฟัดจ์', flat: 139, img: wongnaiPhoto('754585285c964eff9253aee2394fc290.jpg') },
       { name: 'CP Plain Croissant', thai: 'ครัวซองต์ เพลน', flat: 109, img: wongnaiPhoto('39f0e85955034115bd57b3e6f8cc1fa1.jpg') },
-      { name: 'CB Butterfly Cinnamon Roll', thai: 'ซินนามอนโรลผีเสื้อ', flat: 129, img: wongnaiPhoto('7a7d022981c34722a8aa5c16a257c432.jpg') },
+      { name: 'CB Cinnamon Roll Butterfly', thai: 'ซินนามอนโรลผีเสื้อ', flat: 129, img: wongnaiPhoto('7a7d022981c34722a8aa5c16a257c432.jpg') },
       { name: 'ET Classic Egg Tart', thai: 'ทาร์ตไข่ คลาสสิค', flat: 119, img: wongnaiPhoto('10424b6516254106ac58910b2e753270.jpg') }
     ]
   }
