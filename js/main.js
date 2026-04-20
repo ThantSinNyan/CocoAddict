@@ -255,26 +255,6 @@
       ? iceCreamSVG(randomLiquid(item.name), 'h-16 w-16')
       : drinkSVG(randomLiquid(item.name), 'h-16 w-16');
 
-    // photo card (Grab-style) when item has a real photo
-    if (item.img) {
-      return `
-        <article class="menu-card photo-card reveal" data-cat="${catKey}">
-          <div class="photo-card-img" data-img="${item.img}" data-label="${item.name}">
-            <div class="fallback bg-gradient-to-br from-coco-100 to-sand-100 h-full w-full"></div>
-          </div>
-          <div class="p-4">
-            <p class="menu-cat-label">${catLabel}</p>
-            <div class="flex items-start justify-between gap-2 mt-1">
-              <div>
-                <h3 class="menu-name">${item.name}</h3>
-                <p class="menu-thai">${item.thai}</p>
-              </div>
-              <span class="shrink-0 rounded-full bg-coco-100 px-3 py-1 text-sm font-bold text-coco-700">฿${item.flat}</span>
-            </div>
-          </div>
-        </article>`;
-    }
-
     return `
       <article class="menu-card reveal" data-cat="${catKey}">
         <div class="flex items-start justify-between gap-3">
