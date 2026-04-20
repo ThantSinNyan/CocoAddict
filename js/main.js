@@ -252,6 +252,31 @@
     const icon = isIceCream
       ? iceCreamSVG(randomLiquid(item.name), 'h-16 w-16')
       : drinkSVG(randomLiquid(item.name), 'h-16 w-16');
+
+    // photo card (Grab-style) when item has a real photo
+    if (item.img) {
+      return `
+        <article class="menu-card photo-card reveal" data-cat="${catKey}">
+          <div class="photo-card-img" data-img="${item.img}" data-label="${item.name}">
+            <div class="fallback bg-gradient-to-br from-coco-100 to-sand-200 h-full w-full grid place-items-center">
+              <div class="opacity-70">${drinkSVG(randomLiquid(item.name), 'h-20 w-20')}</div>
+            </div>
+            ${item.isNew ? '<span class="badge-new">New</span>' : ''}
+          </div>
+          <div class="p-4">
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <p class="menu-cat-label">${catLabel}</p>
+                <h3 class="menu-name mt-1 text-base">${item.name}</h3>
+                <p class="menu-thai">${item.thai}</p>
+              </div>
+              <span class="shrink-0 mt-1 rounded-full bg-coco-100 px-3 py-1 text-sm font-bold text-coco-700">฿${item.flat}</span>
+            </div>
+            ${item.desc ? `<p class="mt-2 text-xs text-ink-500 leading-relaxed">${item.desc}</p>` : ''}
+          </div>
+        </article>`;
+    }
+
     return `
       <article class="menu-card reveal" data-cat="${catKey}">
         <div class="flex items-start justify-between gap-3">
@@ -307,6 +332,9 @@
     }).join('');
     menuGrid.innerHTML = html;
     menuGrid.dataset.mode = 'iced';
+    menuGrid.querySelectorAll('[data-img]').forEach(el => {
+      if (el.dataset.img) loadPhoto(el, el.dataset.img);
+    });
     observeReveal(menuGrid);
   }
   renderMenu();

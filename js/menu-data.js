@@ -36,7 +36,15 @@ window.COCO_MENU = {
     label: 'Smoothie',
     note: 'Iced blended',
     items: [
-      { name: 'Coconut with Milk', thai: 'มะพร้าวปั่นนมสด', flat: 59 }
+      { name: 'Coconut with Milk', thai: 'มะพร้าวปั่นนมสด', flat: 59 },
+      {
+        name: 'Lod Chong "Wat Jed" Smoothie',
+        thai: 'ลอดช่องวัดเจษปั้น',
+        flat: 89,
+        img: 'assets/images/lod-chong.jpg',
+        desc: 'Pandan lod chong jelly blended with coconut milk, topped with coconut ice cream.',
+        isNew: true
+      }
     ]
   },
   slushy: {
