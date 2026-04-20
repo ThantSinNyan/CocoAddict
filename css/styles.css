@@ -317,17 +317,12 @@ body.is-loaded #loader {
   opacity: 0.7;
 }
 
-.food-card-img-wrap .photo-img {
-  position: absolute;
-  inset: 0;
+.food-real-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0;
-  transition: opacity .5s ease;
-  z-index: 1;
+  display: block;
 }
-.food-card-img-wrap .photo-img.loaded { opacity: 1; }
 
 .food-price-tag {
   display: inline-block;

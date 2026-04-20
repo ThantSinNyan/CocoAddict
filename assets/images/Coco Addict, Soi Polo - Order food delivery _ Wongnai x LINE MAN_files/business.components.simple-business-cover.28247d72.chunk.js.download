@@ -1,0 +1,2 @@
+(window.__LOADABLE_LOADED_CHUNKS__=window.__LOADABLE_LOADED_CHUNKS__||[]).push([[30],{L6wo:function(i,n,_){"use strict";_.r(n);var c=_("nKUr"),d=_("mjeR"),e=_.n(d),t=_("V5v0");n.default=function(){return Object(c.jsx)(t.c,{children:Object(c.jsx)(t.b,{children:Object(c.jsx)(t.g,{children:Object(c.jsx)(e.a,{width:"50%"},void 0)},void 0)},void 0)},void 0)}}}]);
+//# sourceMappingURL=business.components.simple-business-cover.28247d72.chunk.js.map

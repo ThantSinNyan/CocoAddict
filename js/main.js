@@ -267,8 +267,11 @@
                 <span class="food-price-tag">฿${item.flat}</span>
               </div>
             </div>
-            <div class="food-card-img-wrap" data-img="${item.img}" data-label="${item.name}">
-              <div class="food-img-fallback">${icon}</div>
+            <div class="food-card-img-wrap">
+              <img src="${item.img}" alt="${item.name}"
+                   class="food-real-img"
+                   onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+              <div class="food-img-fallback" style="display:none">${icon}</div>
             </div>
           </div>
         </article>`;
