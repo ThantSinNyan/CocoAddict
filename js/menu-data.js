@@ -41,9 +41,7 @@ window.COCO_MENU = {
         name: 'Lod Chong "Wat Jed" Smoothie',
         thai: 'ลอดช่องวัดเจษปั้น',
         flat: 89,
-        img: 'assets/images/lod-chong.jpg',
-        desc: 'Pandan lod chong jelly blended with coconut milk, topped with coconut ice cream.',
-        isNew: true
+        img: 'assets/images/lod-chong.jpg'
       }
     ]
   },
