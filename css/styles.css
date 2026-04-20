@@ -131,29 +131,27 @@ body.is-loaded #loader {
 .price-row {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: .5rem;
+  gap: .65rem;
   margin-top: 1.1rem;
   align-items: stretch;
 }
-.price-row.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.price-row.cols-1 { grid-template-columns: minmax(0, 1fr); }
 
 .price-pill {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: .55rem .3rem;
-  border-radius: 14px;
-  border: 1px solid #EAF4EE;
-  background: #F6FAF7;
+  padding: .75rem .45rem;
+  border-radius: 18px;
+  border: 1px solid #DCEEE4;
+  background: #FBFDFC;
   transition: all .25s ease;
-  min-height: 62px;
+  min-height: 84px;
 }
 .price-pill.unavailable {
-  opacity: .35;
+  opacity: .5;
   background: #FAFAFA;
-  border-color: #F0F0F0;
+  border-color: #EEF3F0;
 }
 .price-pill .label {
   font-size: .6rem;
@@ -175,7 +173,7 @@ body.is-loaded #loader {
 }
 
 .drink-card-body {
-  min-height: 280px;
+  min-height: 292px;
   height: 100%;
   padding: 1.6rem;
 }
@@ -204,18 +202,18 @@ body.is-loaded #loader {
 }
 
 .drink-card-media {
-  width: 112px;
-  min-width: 112px;
+  width: 118px;
+  min-width: 118px;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
 }
 
 .drink-card-media-frame,
 .drink-card-placeholder {
-  width: 112px;
-  height: 168px;
-  border-radius: 24px;
+  width: 118px;
+  aspect-ratio: 5 / 7;
+  border-radius: 22px;
   overflow: hidden;
   background: linear-gradient(180deg, #F8FBF9 0%, #EAF4EE 100%);
   border: 1px solid #E2F0E8;
@@ -228,17 +226,12 @@ body.is-loaded #loader {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
 }
 
 .drink-price-row {
-  margin-top: 1.35rem;
-}
-
-.drink-price-row .price-pill {
-  min-height: 84px;
-  border-radius: 18px;
-  background: #FBFDFC;
+  margin-top: 1.5rem;
 }
 
 /* emphasis driven by data-mode on grid */
@@ -355,57 +348,97 @@ body.is-loaded #loader {
 /* Hide category sections when filtered */
 .menu-card.is-hidden { display: none; }
 
-/* ---------- Food app card (text left, photo right) ---------- */
-.menu-card.food-card { padding: 0; overflow: hidden; }
+/* ---------- Food cards ---------- */
+.menu-card.food-card {
+  padding: 0;
+  overflow: hidden;
+}
 
 .food-card-body {
   display: flex;
-  align-items: stretch;
-  gap: 0;
-  min-height: 140px;
-}
-
-.food-card-text {
-  flex: 1;
-  padding: 1.4rem 1.2rem 1.4rem 1.6rem;
-  display: flex;
   flex-direction: column;
-  justify-content: center;
+  min-height: 100%;
+  height: 100%;
 }
 
-.food-card-img-wrap {
+.food-card-media {
+  padding: 1rem 1rem 0;
+}
+
+.food-card-media-frame,
+.food-card-placeholder {
   position: relative;
-  width: 130px;
-  flex-shrink: 0;
-  border-radius: 0 24px 24px 0;
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  border-radius: 22px;
   overflow: hidden;
-  background: #EAF4EE;
+  background: linear-gradient(180deg, #F7FBF8 0%, #EAF4EE 100%);
+  border: 1px solid #E2F0E8;
 }
 
-.food-img-fallback {
-  position: absolute;
-  inset: 0;
+.food-card-placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.7;
+  padding: 1rem;
 }
 
 .food-real-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
 }
 
-.food-price-tag {
-  display: inline-block;
-  background: #EAF4EE;
+.food-card-monogram {
+  width: 72px;
+  height: 72px;
+  border-radius: 22px;
+  border: 1px solid #CFE5D8;
+  background: rgba(255, 255, 255, .78);
   color: #376E55;
-  font-size: .95rem;
+  display: grid;
+  place-items: center;
+  font-size: 1rem;
   font-weight: 700;
-  padding: .35rem .9rem;
-  border-radius: 9999px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.food-card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.15rem 1.15rem 1.2rem;
+}
+
+.food-card-content .menu-name {
+  font-size: 1.12rem;
+}
+
+.food-card-price {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #EDF5F0;
+}
+
+.food-card-price-label {
+  font-size: .68rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: #7F8A84;
+  font-weight: 600;
+}
+
+.food-card-price-value {
+  color: #376E55;
+  font-size: 1.2rem;
+  font-weight: 700;
 }
 
 @media (max-width: 480px) {
@@ -421,17 +454,14 @@ body.is-loaded #loader {
   .drink-card-media,
   .drink-card-media-frame,
   .drink-card-placeholder {
-    width: 92px;
-    min-width: 92px;
-    height: 138px;
+    width: 96px;
+    min-width: 96px;
   }
 
   .drink-card-text .menu-name {
     max-width: none;
     font-size: 1.08rem;
   }
-
-  .food-card-img-wrap { width: 100px; }
 }
 
 
