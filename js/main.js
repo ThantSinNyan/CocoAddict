@@ -215,6 +215,25 @@
 
   /* ========== Menu render ========== */
   const menuGrid = $('#menuGrid');
+  const catFilter = $('#catFilter');
+
+  function menuOrder() {
+    if (Array.isArray(window.COCO_MENU_ORDER) && window.COCO_MENU_ORDER.length) {
+      return window.COCO_MENU_ORDER.filter(catKey => window.COCO_MENU?.[catKey]);
+    }
+    return Object.keys(window.COCO_MENU || {});
+  }
+
+  function renderCategoryFilter() {
+    if (!catFilter || !window.COCO_MENU) return;
+    const chips = [
+      '<button data-cat="all" class="cat-chip is-active">All</button>',
+      ...menuOrder().map(catKey => (
+        `<button data-cat="${catKey}" class="cat-chip">${window.COCO_MENU[catKey].label}</button>`
+      ))
+    ];
+    catFilter.innerHTML = chips.join('');
+  }
 
   function tempPill(label, tempKey, value) {
     const unavailable = value == null;
@@ -249,11 +268,14 @@
         </article>`;
     }
 
-    // flat-price drink (smoothie / slushy / ice cream)
+    // flat-price item (smoothie / slushy / food / ice cream)
     const isIceCream = catKey === 'iceCream';
+    const isFoodCategory = ['toast', 'bakery', 'dessert', 'salad', 'sandwich'].includes(catKey);
     const icon = isIceCream
       ? iceCreamSVG(randomLiquid(item.name), 'h-16 w-16')
-      : drinkSVG(randomLiquid(item.name), 'h-16 w-16');
+      : isFoodCategory
+        ? iceCreamSVG(randomLiquid(item.name), 'h-16 w-16')
+        : drinkSVG(randomLiquid(item.name), 'h-16 w-16');
 
     if (item.img) {
       return `
@@ -298,35 +320,82 @@
 
   function randomLiquid(name) {
     const map = {
-      'Americano':                '#3E2B1C',
-      'Espresso':                 '#2A1A0E',
-      'Cappuccino':               '#C9A679',
-      'Latte':                    '#B8875A',
-      'Mocca':                    '#4A2C1E',
-      'Matcha Green Tea':         '#8FB877',
-      'Thai Tea':                 '#D88446',
-      'Thai Tea + Lemon':         '#E2A65C',
-      'Thai Tea + Honey + Lemon': '#E6B36A',
-      'Thai Milk Tea (slushy)':   '#E29863',
-      'Thai Milk Tea':            '#E29863',
-      'Cocoa':                    '#5A3A26',
-      'Chocolate':                '#4B2C1E',
-      'Butterfly Pea Lime Soda':  '#6E7FC2',
-      'Coconut with Milk':        '#F4ECDD',
-      'Coconut':                  '#F4ECDD',
-      'Coconut Milk':             '#F5EDD8',
-      'Mixed Coconut Milk':       '#E7D7BA',
-      'Taro':                     '#C9ADDD',
-      'Lychee':                   '#F5B8C4',
-      'Durian':                   '#EBD96A'
+      'AM Americano': '#3E2B1C',
+      'ES Espresso': '#2A1A0E',
+      'CP Cappuccino': '#C9A679',
+      'LT Latte': '#B8875A',
+      'MC Mocha': '#4A2C1E',
+      'CB Cold Brew': '#362417',
+      'CM Caramel Macchiato': '#B97845',
+      'HM Hazelnut Macchiato': '#8D5C3B',
+      'AO Americano Orange': '#C56D2C',
+      'AHL Americano Honey Lemon': '#C5913E',
+      'MT Matcha Green Tea': '#8FB877',
+      'TTL Lemon Tea': '#E2A65C',
+      'THL Honey Lemon Tea': '#E6B36A',
+      'TMT Thai Milk Tea': '#E29863',
+      'TTC Iced Black Tea with Coconut': '#756347',
+      'MF Matcha Coconut Cream Foam': '#92B978',
+      'CO Cocoa': '#5A3A26',
+      'CH Chocolate': '#4B2C1E',
+      'ACH Butterfly Pea Lemon Soda': '#6E7FC2',
+      'LS Lemon Soda': '#D9D564',
+      'LF Coconut Latte Cream Foam': '#E5D5BC',
+      'Coconut Water': '#EDE6D5',
+      'Fresh Orange Juice': '#F2A14C',
+      'ACHC Butterfly Pea Lemon Concentrate': '#6F71B8',
+      'Coconut Smoothie with Fresh Milk': '#F4ECDD',
+      'Fresh Orange Blended': '#F0A24C',
+      'Fresh Lemon Blended': '#E7D865',
+      'Thai Milk Tea Ice Flakes': '#E29863',
+      'Butterfly Pea Lemon Soda Ice Flakes': '#6E7FC2',
+      'Coconut Ice Cream': '#F5EDD8',
+      'Gelato Malt Biscuit Cookie': '#D9C7A1',
+      'Gelato Yogurt Jelly': '#F0C6D0',
+      'MI Matcha Ice Cream': '#9BC07B',
+      'LCH Lod Chong Wat Chet': '#8DB46F',
+      'CHK Grass Jelly Ovaltine Blended': '#6C5848',
+      'PD Coconut Milk Pudding': '#F3E7D2',
+      'PD Coconut Milk Pudding x 3': '#F3E7D2',
+      'CHB Butter Shortbread': '#E7CB8A',
+      'CHS Strawberry Shortbread': '#E7A1A7',
+      'CP Caramel Popcorn': '#C98942',
+      'MP Milo School Bus Popcorn': '#8B5A3B',
+      'Fresh Marian Plum': '#F0BE56',
+      'Original Kale Crisps': '#7FB16F',
+      'Sriracha Mayo Kale Crisps': '#B65E42',
+      'Original Zucchini Crisps': '#98B672',
+      'Sriracha Mayo Zucchini Crisps': '#C06A48',
+      'Caesar Cos Crisps': '#B4C476',
+      'CK Fresh Shredded Chicken Sandwich': '#D5AA76',
+      'BM Butter Milk Bread': '#E5C98D',
+      'BS Butter Sugar Bread': '#E7D49A',
+      'OV Ovaltine Volcano': '#8D5A3A',
+      'NU Nutella Bread': '#6B432B',
+      'CP Chili Paste Pork & Chicken Floss Bread': '#A85D3D',
+      'PJ Pandan Custard Bread': '#91B277',
+      'TJ Thai Tea Custard Bread': '#D79454',
+      'PTB Peanut Butter Bread': '#B78B56',
+      'NUB Nutella Banana Bread': '#A86F41',
+      'CHC Ham & Cheese Croissant': '#D8B16A',
+      'CA Almond Croissant': '#D0A45F',
+      'CCP Coffee Pecan Croissant': '#8E6546',
+      'BN Brioche Nutella': '#A96942',
+      'DC Danish Cream Cheese': '#E8D8B2',
+      'PAC Chocolate Bread': '#6B432B',
+      'PAR Raisin Bread': '#B48C64',
+      'SP Shio Pan': '#D9C48C',
+      'FB Fudge Brownies': '#5A3A2A',
+      'CP Plain Croissant': '#D7AA63',
+      'CB Butterfly Cinnamon Roll': '#A96D43',
+      'ET Classic Egg Tart': '#F0CE72'
     };
     return map[name] || '#C9A679';
   }
 
   function renderMenu() {
     if (!menuGrid || !window.COCO_MENU) return;
-    const order = ['coffee', 'tea', 'others', 'smoothie', 'slushy', 'iceCream'];
-    const html = order.flatMap(catKey => {
+    const html = menuOrder().flatMap(catKey => {
       const cat = window.COCO_MENU[catKey];
       if (!cat) return [];
       return cat.items.map(it => menuCard(it, catKey, cat.label));
@@ -338,10 +407,10 @@
     });
     observeReveal(menuGrid);
   }
+  renderCategoryFilter();
   renderMenu();
 
   /* ========== Menu filter ========== */
-  const catFilter = $('#catFilter');
   if (catFilter) {
     catFilter.addEventListener('click', e => {
       const btn = e.target.closest('.cat-chip');
