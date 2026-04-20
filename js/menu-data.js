@@ -36,7 +36,7 @@ window.COCO_MENU = {
     label: 'Smoothie',
     note: 'Iced blended',
     items: [
-      { name: 'Coconut with Milk', thai: 'มะพร้าวปั่นนมสด', flat: 59 }
+      { name: 'Coconut with Milk', thai: 'มะพร้าวปั่นนมสด', flat: 59, img: 'assets/images/coconut-smoothie.jpg' }
     ]
   },
   slushy: {

@@ -255,6 +255,25 @@
       ? iceCreamSVG(randomLiquid(item.name), 'h-16 w-16')
       : drinkSVG(randomLiquid(item.name), 'h-16 w-16');
 
+    if (item.img) {
+      return `
+        <article class="menu-card food-card reveal" data-cat="${catKey}">
+          <div class="food-card-body">
+            <div class="food-card-text">
+              <p class="menu-cat-label">${catLabel}</p>
+              <h3 class="menu-name mt-1">${item.name}</h3>
+              <p class="menu-thai">${item.thai}</p>
+              <div class="mt-4">
+                <span class="food-price-tag">฿${item.flat}</span>
+              </div>
+            </div>
+            <div class="food-card-img-wrap" data-img="${item.img}" data-label="${item.name}">
+              <div class="food-img-fallback">${icon}</div>
+            </div>
+          </div>
+        </article>`;
+    }
+
     return `
       <article class="menu-card reveal" data-cat="${catKey}">
         <div class="flex items-start justify-between gap-3">
@@ -311,8 +330,8 @@
     }).join('');
     menuGrid.innerHTML = html;
     menuGrid.dataset.mode = 'iced';
-    menuGrid.querySelectorAll('[data-img]').forEach(el => {
-      if (el.dataset.img) loadPhoto(el, el.dataset.img);
+    menuGrid.querySelectorAll('.food-card-img-wrap[data-img]').forEach(el => {
+      loadPhoto(el, el.dataset.img);
     });
     observeReveal(menuGrid);
   }
