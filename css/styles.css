@@ -480,13 +480,18 @@ body.is-loaded #loader {
   background: #EAF4EE;
   overflow: hidden;
   cursor: pointer;
+  aspect-ratio: 4 / 3;
+  min-height: 180px;
   transition: transform .35s ease, box-shadow .35s ease;
 }
 .gallery-tile:hover {
   transform: translateY(-4px);
   box-shadow: 0 22px 40px -20px rgba(40,80,60,.22);
 }
-.gallery-tile.tall { grid-row: span 2; }
+.gallery-tile.tall {
+  grid-row: span 2;
+  aspect-ratio: 4 / 6;
+}
 
 /* fallback content inside tiles */
 .gallery-tile .fallback {
