@@ -36,13 +36,7 @@ window.COCO_MENU = {
     label: 'Smoothie',
     note: 'Iced blended',
     items: [
-      { name: 'Coconut with Milk', thai: 'มะพร้าวปั่นนมสด', flat: 59 },
-      {
-        name: 'Lod Chong "Wat Jed" Smoothie',
-        thai: 'ลอดช่องวัดเจษปั้น',
-        flat: 89,
-        img: 'assets/images/lod-chong.jpg'
-      }
+      { name: 'Coconut with Milk', thai: 'มะพร้าวปั่นนมสด', flat: 59 }
     ]
   },
   slushy: {
