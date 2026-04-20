@@ -362,21 +362,23 @@
       </div>
 
       <!-- controls -->
-      <div class="mt-10 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <!-- category filter -->
-        <div id="catFilter" class="flex flex-wrap gap-2">
-          <button data-cat="all"       class="cat-chip is-active">All</button>
-          <button data-cat="coffee"    class="cat-chip">Coffee</button>
-          <button data-cat="tea"       class="cat-chip">Tea</button>
-          <button data-cat="others"    class="cat-chip">Others</button>
-          <button data-cat="smoothie"  class="cat-chip">Smoothie</button>
-          <button data-cat="slushy"    class="cat-chip">Slushy</button>
-          <button data-cat="iceCream"  class="cat-chip">Ice Cream</button>
-        </div>
-        <!-- hot/iced toggle -->
-        <div id="tempToggle" class="inline-flex items-center rounded-full border border-coco-200 bg-white p-1 shadow-soft">
-          <button data-temp="hot"  class="temp-btn"><span class="mr-1.5">♨</span>Hot</button>
-          <button data-temp="iced" class="temp-btn is-active"><span class="mr-1.5">❄</span>Iced</button>
+      <div class="mt-10 flex flex-col gap-4">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <!-- category filter -->
+          <div id="catFilter" class="flex flex-wrap gap-2">
+            <button data-cat="all"       class="cat-chip is-active">All</button>
+            <button data-cat="coffee"    class="cat-chip">Coffee</button>
+            <button data-cat="tea"       class="cat-chip">Tea</button>
+            <button data-cat="others"    class="cat-chip">Others</button>
+            <button data-cat="smoothie"  class="cat-chip">Smoothie</button>
+            <button data-cat="slushy"    class="cat-chip">Slushy</button>
+            <button data-cat="iceCream"  class="cat-chip">Ice Cream</button>
+          </div>
+          <!-- hot/iced toggle -->
+          <div id="tempToggle" class="flex-none inline-flex items-center rounded-full border border-coco-200 bg-white p-1 shadow-soft">
+            <button data-temp="hot"  class="temp-btn">♨&nbsp;Hot</button>
+            <button data-temp="iced" class="temp-btn is-active">❄&nbsp;Iced</button>
+          </div>
         </div>
       </div>
 

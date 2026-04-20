@@ -73,27 +73,29 @@
   }
 
   /* ========== Drink SVG — clean cup with logo + liquid colour ========== */
+  let _cupId = 0;
   function drinkSVG(liquidColor = '#C9A679', size = 'h-40 w-40') {
     const dark = '#2A1A08';
+    const uid = ++_cupId;
     return `
       <svg viewBox="0 0 160 210" class="${size}" xmlns="http://www.w3.org/2000/svg" fill="none">
         <defs>
-          <linearGradient id="liq_${liquidColor.replace('#','')}" x1="0" x2="1" y1="0" y2="0">
+          <linearGradient id="liq_${uid}" x1="0" x2="1" y1="0" y2="0">
             <stop offset="0"    stop-color="${liquidColor}" stop-opacity="0.85"/>
             <stop offset="0.45" stop-color="${liquidColor}"/>
             <stop offset="1"    stop-color="${liquidColor}" stop-opacity="0.75"/>
           </linearGradient>
-          <clipPath id="cc_${liquidColor.replace('#','')}">
+          <clipPath id="cc_${uid}">
             <path d="M28 52 L38 188 C38.5 194 43 198 49 198 L111 198 C117 198 121.5 194 122 188 L132 52 Z"/>
           </clipPath>
         </defs>
 
         <!-- cup liquid fill -->
         <path d="M28 52 L38 188 C38.5 194 43 198 49 198 L111 198 C117 198 121.5 194 122 188 L132 52 Z"
-              fill="url(#liq_${liquidColor.replace('#','')})"/>
+              fill="url(#liq_${uid})"/>
 
         <!-- shine strip -->
-        <g clip-path="url(#cc_${liquidColor.replace('#','')})">
+        <g clip-path="url(#cc_${uid})">
           <path d="M28 52 L36 188 L52 188 L44 52 Z" fill="#ffffff" opacity="0.22"/>
         </g>
 
@@ -303,6 +305,7 @@
       'Thai Tea':                 '#D88446',
       'Thai Tea + Lemon':         '#E2A65C',
       'Thai Tea + Honey + Lemon': '#E6B36A',
+      'Thai Milk Tea (slushy)':   '#E29863',
       'Thai Milk Tea':            '#E29863',
       'Cocoa':                    '#5A3A26',
       'Chocolate':                '#4B2C1E',
