@@ -72,29 +72,66 @@
       </svg>`;
   }
 
-  /* ========== Drink SVG (shared) ========== */
+  /* ========== Drink SVG — clean cup with logo + liquid colour ========== */
   function drinkSVG(liquidColor = '#C9A679', size = 'h-40 w-40') {
+    const dark = '#2A1A08';
     return `
-      <svg viewBox="0 0 160 200" class="${size}" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 160 210" class="${size}" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <defs>
+          <linearGradient id="liq_${liquidColor.replace('#','')}" x1="0" x2="1" y1="0" y2="0">
+            <stop offset="0"    stop-color="${liquidColor}" stop-opacity="0.85"/>
+            <stop offset="0.45" stop-color="${liquidColor}"/>
+            <stop offset="1"    stop-color="${liquidColor}" stop-opacity="0.75"/>
+          </linearGradient>
+          <clipPath id="cc_${liquidColor.replace('#','')}">
+            <path d="M28 52 L38 188 C38.5 194 43 198 49 198 L111 198 C117 198 121.5 194 122 188 L132 52 Z"/>
+          </clipPath>
+        </defs>
+
+        <!-- cup liquid fill -->
+        <path d="M28 52 L38 188 C38.5 194 43 198 49 198 L111 198 C117 198 121.5 194 122 188 L132 52 Z"
+              fill="url(#liq_${liquidColor.replace('#','')})"/>
+
+        <!-- shine strip -->
+        <g clip-path="url(#cc_${liquidColor.replace('#','')})">
+          <path d="M28 52 L36 188 L52 188 L44 52 Z" fill="#ffffff" opacity="0.22"/>
+        </g>
+
+        <!-- cup outline -->
+        <path d="M28 52 L38 188 C38.5 194 43 198 49 198 L111 198 C117 198 121.5 194 122 188 L132 52 Z"
+              stroke="${dark}" stroke-width="2.5"/>
+
         <!-- lid -->
-        <rect x="30" y="32" width="100" height="10" rx="2" fill="#2C5643"/>
-        <!-- dome lid -->
-        <path d="M34 32 Q80 6 126 32 Z" fill="#F6FAF7" stroke="#B0D6BE" stroke-width="1.5"/>
-        <!-- straw -->
-        <rect x="76" y="8" width="8" height="40" rx="2" fill="#5CA682"/>
-        <!-- cup -->
-        <path d="M36 42 L48 186 C48.6 192 53.5 196 59.5 196 L100.5 196 C106.5 196 111.4 192 112 186 L124 42 Z"
-              fill="#ffffff" stroke="#2C5643" stroke-width="2"/>
-        <!-- liquid -->
-        <path d="M41 56 L51 180 C51.5 184 55 187 59 187 L101 187 C105 187 108.5 184 109 180 L119 56 Z"
-              fill="${liquidColor}" opacity=".88"/>
-        <!-- highlight -->
-        <path d="M46 70 C 52 66 58 66 64 70 L62 180 C 56 178 50 178 46 180 Z" fill="#ffffff" opacity=".18"/>
-        <!-- logo ring -->
-        <circle cx="80" cy="120" r="20" fill="none" stroke="#2C5643" stroke-width="1.6" opacity=".85"/>
-        <path d="M68 120 q12 -8 24 0" fill="none" stroke="#2C5643" stroke-width="1.6" opacity=".85"/>
-        <circle cx="74" cy="117" r="1.6" fill="#2C5643" opacity=".85"/>
-        <circle cx="86" cy="117" r="1.6" fill="#2C5643" opacity=".85"/>
+        <ellipse cx="80" cy="54" rx="52" ry="8" fill="#EDEAE4" stroke="#B8B098" stroke-width="1.2"/>
+        <ellipse cx="80" cy="51" rx="49" ry="6" fill="#F5F2EC" opacity="0.8"/>
+
+        <!-- straw slot -->
+        <rect x="76" y="38" width="8" height="18" rx="2.5" fill="#D8D4CC" stroke="#B0A898" stroke-width="1"/>
+
+        <!-- ── logo on cup ── -->
+        <circle cx="80" cy="130" r="28" fill="none" stroke="${dark}" stroke-width="1.6" opacity="0.7"/>
+        <!-- coconut bowl -->
+        <circle cx="80" cy="133" r="11" fill="none" stroke="${dark}" stroke-width="1.5" opacity="0.7"/>
+        <!-- rim arc -->
+        <path d="M73 129 Q80 126 87 129" stroke="${dark}" stroke-width="1.3" fill="none" opacity="0.7"/>
+        <!-- drips -->
+        <line x1="75" y1="130" x2="75" y2="133" stroke="${dark}" stroke-width="1.2" opacity="0.7"/>
+        <line x1="80" y1="128" x2="80" y2="132" stroke="${dark}" stroke-width="1.2" opacity="0.7"/>
+        <line x1="85" y1="130" x2="85" y2="133" stroke="${dark}" stroke-width="1.2" opacity="0.7"/>
+        <!-- umbrella -->
+        <path d="M68 128 L73 122 L78 128 Z" fill="${dark}" opacity="0.7"/>
+        <line x1="73" y1="128" x2="76" y2="132" stroke="${dark}" stroke-width="1.2" opacity="0.7"/>
+        <!-- syringe -->
+        <g transform="rotate(18 88 122)" opacity="0.7">
+          <line x1="85" y1="118" x2="91" y2="118" stroke="${dark}" stroke-width="1.8"/>
+          <line x1="88" y1="118" x2="88" y2="123" stroke="${dark}" stroke-width="1.2"/>
+          <rect x="86" y="123" width="4" height="7" stroke="${dark}" stroke-width="1.2"/>
+          <line x1="88" y1="130" x2="88" y2="134" stroke="${dark}" stroke-width="1.2"/>
+        </g>
+        <!-- wordmark -->
+        <text x="80" y="153" text-anchor="middle"
+              font-family="Caveat,cursive" font-size="9.5" font-weight="700"
+              fill="${dark}" opacity="0.7">Coco Addict</text>
       </svg>`;
   }
 
@@ -149,9 +186,11 @@
       <article class="feat-card reveal" style="transition-delay:${i * 80}ms">
         <div class="feat-visual bg-gradient-to-br ${d.gradient} overflow-hidden"
              data-img="${d.img || ''}" data-label="${d.name}">
-          <!-- SVG fallback shown until/unless real photo loads -->
           <div class="feat-svg-fallback">
-            ${drinkSVG(d.drink, 'h-44 w-44 drop-shadow-xl')}
+            ${d.cupSvg
+              ? `<img src="${d.cupSvg}" alt="${d.name}" class="h-44 w-auto drop-shadow-xl"/>`
+              : drinkSVG(d.drink, 'h-44 w-44 drop-shadow-xl')
+            }
           </div>
         </div>
         <div class="mt-5 flex items-start justify-between gap-3">

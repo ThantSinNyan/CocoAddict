@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 380" fill="none">
+  <defs>
+    <linearGradient id="liquid" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0"   stop-color="#B8894E"/>
+      <stop offset="0.4" stop-color="#D4A96A"/>
+      <stop offset="0.75" stop-color="#C89858"/>
+      <stop offset="1"   stop-color="#B07840"/>
+    </linearGradient>
+    <linearGradient id="foam" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#F5EDD8"/>
+      <stop offset="1" stop-color="#E0D0B0"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0"   stop-color="#ffffff" stop-opacity="0.5"/>
+      <stop offset="0.4" stop-color="#ffffff" stop-opacity="0.08"/>
+      <stop offset="1"   stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="straw" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0"   stop-color="#6BBF90"/>
+      <stop offset="0.5" stop-color="#7FD4A8"/>
+      <stop offset="1"   stop-color="#5CAA7C"/>
+    </linearGradient>
+    <linearGradient id="lid" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#EEEAE2"/>
+      <stop offset="1" stop-color="#D8D2C4"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#6A3E18" flood-opacity="0.25"/>
+    </filter>
+    <clipPath id="cupClip">
+      <path d="M44 104 L60 344 C61 354 70 362 80 362 L180 362 C190 362 199 354 200 344 L216 104 Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- ── STRAW ── -->
+  <rect x="148" y="10" width="14" height="115" rx="5" fill="url(#straw)"/>
+  <!-- straw shine -->
+  <rect x="150" y="10" width="4" height="115" rx="2" fill="#ffffff" opacity="0.3"/>
+
+  <!-- ── CUP ── -->
+  <g filter="url(#shadow)">
+
+    <!-- liquid body -->
+    <path d="M44 104 L60 344 C61 354 70 362 80 362 L180 362 C190 362 199 354 200 344 L216 104 Z"
+          fill="url(#liquid)"/>
+
+    <!-- foam layer on top of liquid -->
+    <g clip-path="url(#cupClip)">
+      <path d="M44 104 L216 104 L216 128 Q200 122 180 120 Q155 118 130 120 Q105 122 80 120 Q60 118 44 128 Z"
+            fill="url(#foam)" opacity="0.9"/>
+      <!-- shine strip -->
+      <path d="M44 104 L56 344 L76 344 L66 104 Z" fill="url(#shine)"/>
+    </g>
+
+    <!-- cup outline -->
+    <path d="M44 104 L60 344 C61 354 70 362 80 362 L180 362 C190 362 199 354 200 344 L216 104 Z"
+          stroke="#1C1008" stroke-width="3" fill="none" stroke-linejoin="round"/>
+
+    <!-- ── LOGO ── -->
+    <circle cx="130" cy="240" r="48" fill="none" stroke="#1C1008" stroke-width="2" opacity="0.6"/>
+
+    <!-- coconut bowl -->
+    <circle cx="130" cy="244" r="18" fill="none" stroke="#1C1008" stroke-width="1.8" opacity="0.6"/>
+    <path d="M116 237 Q130 230 144 237" stroke="#1C1008" stroke-width="1.6" fill="none" opacity="0.6"/>
+    <line x1="120" y1="238" x2="120" y2="243" stroke="#1C1008" stroke-width="1.5" opacity="0.6"/>
+    <line x1="130" y1="234" x2="130" y2="240" stroke="#1C1008" stroke-width="1.5" opacity="0.6"/>
+    <line x1="140" y1="238" x2="140" y2="243" stroke="#1C1008" stroke-width="1.5" opacity="0.6"/>
+
+    <!-- umbrella -->
+    <path d="M110 237 L117 229 L124 237 Z" fill="#1C1008" opacity="0.6"/>
+    <line x1="117" y1="237" x2="121" y2="243" stroke="#1C1008" stroke-width="1.5" opacity="0.6"/>
+
+    <!-- syringe -->
+    <g transform="rotate(18 148 230)" opacity="0.6">
+      <line x1="143" y1="223" x2="153" y2="223" stroke="#1C1008" stroke-width="2.2"/>
+      <line x1="148" y1="223" x2="148" y2="230" stroke="#1C1008" stroke-width="1.6"/>
+      <rect x="144" y="230" width="8" height="12" stroke="#1C1008" stroke-width="1.6"/>
+      <line x1="148" y1="242" x2="148" y2="249" stroke="#1C1008" stroke-width="1.6"/>
+    </g>
+
+    <!-- wordmark -->
+    <text x="130" y="280" text-anchor="middle"
+          font-family="Caveat,cursive" font-size="17" font-weight="700"
+          fill="#1C1008" opacity="0.68">Coco Addict</text>
+    <text x="130" y="293" text-anchor="middle"
+          font-family="Inter,sans-serif" font-size="7" letter-spacing="1.1"
+          fill="#1C1008" opacity="0.5">Coconut Fanatic Experience</text>
+  </g>
+
+  <!-- ── LID ── -->
+  <path d="M44 104 L216 104 Q216 116 208 118 L52 118 Q44 116 44 104 Z"
+        fill="url(#lid)" stroke="#C4BCA8" stroke-width="1.5"/>
+  <!-- lid top highlight -->
+  <path d="M48 104 L212 104 Q212 109 207 110 L53 110 Q48 109 48 104 Z"
+        fill="#F8F5EE" opacity="0.8"/>
+
+  <!-- straw hole in lid -->
+  <ellipse cx="155" cy="111" rx="8" ry="3.5" fill="#C8C0B0" stroke="#A8A098" stroke-width="1"/>
+</svg>
