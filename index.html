@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Coco Addict — Coconut Fanatic Experience. A cozy coconut-themed café in Lumphini, Bangkok." />
+  <title>Coco Addict — Coconut Fanatic Experience</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            coco: {
+              50:  '#F6FAF7',
+              100: '#EAF4EE',
+              200: '#D4E9DC',
+              300: '#B0D6BE',
+              400: '#7FBF9E',
+              500: '#5CA682',
+              600: '#458A6A',
+              700: '#376E55',
+              800: '#2C5643',
+              900: '#213F33'
+            },
+            sand: {
+              50:  '#FDFAF4',
+              100: '#F7F0E2',
+              200: '#EDE1C6',
+              300: '#DDC89A',
+              400: '#C9AB6E'
+            },
+            ink: {
+              900: '#121613',
+              800: '#1C211E',
+              700: '#2B332E',
+              500: '#5B6660',
+              400: '#7F8A84'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            script: ['Caveat', 'cursive']
+          },
+          boxShadow: {
+            soft: '0 12px 40px -12px rgba(25, 60, 45, 0.12)',
+            glow: '0 20px 60px -20px rgba(127, 191, 158, 0.55)'
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'float-slow': 'float 9s ease-in-out infinite',
+            'fade-up': 'fadeUp .7s ease-out both',
+            'spin-slow': 'spin 22s linear infinite'
+          },
+          keyframes: {
+            float: {
+              '0%,100%': { transform: 'translateY(0px)' },
+              '50%':    { transform: 'translateY(-14px)' }
+            },
+            fadeUp: {
+              '0%':   { opacity: 0, transform: 'translateY(18px)' },
+              '100%': { opacity: 1, transform: 'translateY(0)' }
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="font-sans bg-white text-ink-900 antialiased selection:bg-coco-200 selection:text-coco-800">
+
+  <!-- ============= LOADER ============= -->
+  <div id="loader" class="fixed inset-0 z-[100] flex items-center justify-center bg-white transition-opacity duration-700">
+    <div class="flex flex-col items-center gap-4">
+      <div class="relative h-16 w-16">
+        <div class="absolute inset-0 rounded-full border-2 border-coco-100"></div>
+        <div class="absolute inset-0 rounded-full border-2 border-transparent border-t-coco-400 animate-spin"></div>
+      </div>
+      <p class="font-script text-2xl text-coco-600">Coco Addict</p>
+    </div>
+  </div>
+
+  <!-- ============= NAVBAR ============= -->
+  <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <div class="mx-auto max-w-7xl px-5 md:px-8">
+      <nav class="mt-3 flex items-center justify-between rounded-2xl border border-white/60 bg-white/70 px-4 py-3 backdrop-blur-xl shadow-soft md:px-6">
+        <a href="#home" class="flex items-center gap-2.5">
+          <span class="grid h-10 w-10 place-items-center rounded-xl bg-coco-50 text-ink-900">
+            <img src="assets/logo.svg" alt="Coco Addict" class="h-7 w-7"/>
+          </span>
+          <div class="leading-none">
+            <div class="font-script text-2xl text-ink-900">Coco Addict</div>
+            <div class="text-[10px] uppercase tracking-[0.22em] text-ink-500">Coconut Fanatic Experience</div>
+          </div>
+        </a>
+
+        <ul class="hidden items-center gap-8 text-sm font-medium text-ink-700 md:flex">
+          <li><a class="nav-link" href="#home">Home</a></li>
+          <li><a class="nav-link" href="#featured">Featured</a></li>
+          <li><a class="nav-link" href="#menu">Menu</a></li>
+          <li><a class="nav-link" href="#about">About</a></li>
+          <li><a class="nav-link" href="#reviews">Reviews</a></li>
+          <li><a class="nav-link" href="#location">Visit</a></li>
+        </ul>
+
+        <div class="flex items-center gap-2">
+          <a href="tel:+66634692696" class="hidden lg:inline-flex items-center gap-2 rounded-full border border-coco-200 bg-white px-4 py-2 text-sm font-medium text-coco-700 hover:bg-coco-50 transition">
+            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2Z"/></svg>
+            063 469 2696
+          </a>
+          <a href="#menu" class="hidden sm:inline-flex rounded-full bg-ink-900 px-5 py-2.5 text-sm font-medium text-white hover:bg-coco-700 transition">Order Now</a>
+          <button id="menuToggle" class="grid h-10 w-10 place-items-center rounded-xl bg-coco-100 text-coco-700 md:hidden" aria-label="Open menu">
+            <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+          </button>
+        </div>
+      </nav>
+
+      <!-- mobile menu -->
+      <div id="mobileMenu" class="hidden mt-2 rounded-2xl border border-white/60 bg-white/90 p-4 shadow-soft backdrop-blur-xl md:hidden">
+        <ul class="flex flex-col gap-1 text-sm font-medium">
+          <li><a href="#home" class="block rounded-lg px-3 py-2 hover:bg-coco-50">Home</a></li>
+          <li><a href="#featured" class="block rounded-lg px-3 py-2 hover:bg-coco-50">Featured</a></li>
+          <li><a href="#menu" class="block rounded-lg px-3 py-2 hover:bg-coco-50">Menu</a></li>
+          <li><a href="#about" class="block rounded-lg px-3 py-2 hover:bg-coco-50">About</a></li>
+          <li><a href="#reviews" class="block rounded-lg px-3 py-2 hover:bg-coco-50">Reviews</a></li>
+          <li><a href="#location" class="block rounded-lg px-3 py-2 hover:bg-coco-50">Visit</a></li>
+          <li class="mt-2"><a href="tel:+66634692696" class="block rounded-lg bg-coco-400 px-3 py-2 text-center text-white">Call 063 469 2696</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============= HERO ============= -->
+  <section id="home" class="relative overflow-hidden pt-32 md:pt-36">
+    <!-- background ornaments -->
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0">
+      <div class="absolute -top-28 -left-28 h-[440px] w-[440px] rounded-full bg-coco-200/60 blur-3xl"></div>
+      <div class="absolute top-40 -right-20 h-[420px] w-[420px] rounded-full bg-sand-100 blur-3xl"></div>
+      <div class="absolute bottom-0 left-1/3 h-[260px] w-[260px] rounded-full bg-coco-100 blur-3xl"></div>
+    </div>
+
+    <div class="relative mx-auto max-w-7xl px-5 md:px-8">
+      <div class="grid items-center gap-12 lg:grid-cols-12">
+        <!-- copy -->
+        <div class="lg:col-span-7 animate-fade-up">
+          <div class="inline-flex items-center gap-2 rounded-full border border-coco-200 bg-white/70 px-4 py-1.5 text-xs font-medium text-coco-700 backdrop-blur">
+            <span class="flex items-center gap-1">
+              <svg viewBox="0 0 24 24" class="h-3.5 w-3.5 fill-current" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.8 1.7 7L12 17.3 5.7 21l1.7-7L2 9.2l7.1-.6L12 2z"/></svg>
+              4.6 · 27 Google reviews
+            </span>
+            <span class="h-1 w-1 rounded-full bg-coco-300"></span>
+            <span>Open daily · 7:30 AM – 4:30 PM</span>
+          </div>
+
+          <h1 class="mt-6 font-semibold tracking-tight text-ink-900">
+            <span class="block text-5xl leading-[1.05] sm:text-6xl lg:text-[88px]">A sip of the</span>
+            <span class="block text-5xl leading-[1.05] sm:text-6xl lg:text-[88px]">
+              <span class="font-script font-normal text-coco-500">coconut</span> coast.
+            </span>
+          </h1>
+
+          <p class="mt-6 max-w-xl text-lg text-ink-500">
+            Cold-pressed coconut, stone-ground matcha, and slow-poured espresso —
+            crafted into a menu of refreshingly unusual drinks in the heart of Lumphini, Bangkok.
+          </p>
+
+          <div class="mt-8 flex flex-wrap items-center gap-3">
+            <a href="#menu" class="group inline-flex items-center gap-2 rounded-full bg-ink-900 px-6 py-3.5 text-sm font-medium text-white transition hover:bg-coco-700">
+              View Menu
+              <svg viewBox="0 0 24 24" class="h-4 w-4 transition group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#location" class="inline-flex items-center gap-2 rounded-full border border-coco-300 bg-white/70 px-6 py-3.5 text-sm font-medium text-coco-700 backdrop-blur hover:bg-coco-50 transition">
+              <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              Order Now
+            </a>
+          </div>
+
+          <!-- quick stats -->
+          <dl class="mt-12 grid max-w-xl grid-cols-3 gap-6">
+            <div>
+              <dt class="text-xs uppercase tracking-widest text-ink-400">Hours</dt>
+              <dd class="mt-1 text-lg font-semibold">7:30 – 16:30</dd>
+            </div>
+            <div>
+              <dt class="text-xs uppercase tracking-widest text-ink-400">Per person</dt>
+              <dd class="mt-1 text-lg font-semibold">฿1–100</dd>
+            </div>
+            <div>
+              <dt class="text-xs uppercase tracking-widest text-ink-400">Location</dt>
+              <dd class="mt-1 text-lg font-semibold">Lumphini</dd>
+            </div>
+          </dl>
+        </div>
+
+        <!-- visual -->
+        <div class="relative lg:col-span-5">
+          <div class="relative mx-auto aspect-square w-full max-w-md">
+            <div class="absolute inset-0 rounded-[48px] bg-gradient-to-br from-coco-100 via-white to-sand-100 shadow-soft"></div>
+
+            <!-- photo layer (real café photo if provided) -->
+            <div class="hero-photo absolute inset-4 rounded-[38px] overflow-hidden" data-img="assets/images/hero.jpg">
+              <div class="fallback absolute inset-0 bg-gradient-to-br from-coco-200 via-coco-50 to-sand-100"></div>
+            </div>
+
+            <!-- rotating ring -->
+            <svg class="absolute inset-0 animate-spin-slow text-coco-600/60" viewBox="0 0 200 200" fill="none">
+              <defs>
+                <path id="circlePath" d="M 100, 100 m -90, 0 a 90,90 0 1,1 180,0 a 90,90 0 1,1 -180,0" />
+              </defs>
+              <text font-family="Inter" font-size="8" letter-spacing="4" fill="currentColor">
+                <textPath href="#circlePath">COCONUT · FANATIC · EXPERIENCE · ✦ · COCO · ADDICT · ✦ · BANGKOK · EST. · ✦ · LUMPHINI · ✦ · </textPath>
+              </text>
+            </svg>
+
+            <!-- logo centerpiece -->
+            <div class="absolute inset-0 grid place-items-center">
+              <div class="relative animate-float">
+                <div class="relative flex h-56 w-56 flex-col items-center justify-center rounded-full bg-white/85 p-6 shadow-glow backdrop-blur-sm ring-1 ring-white/70">
+                  <img src="assets/logo.svg" alt="Coco Addict logo" class="h-28 w-28 text-ink-900"/>
+                  <p class="mt-2 font-script text-2xl text-ink-900 leading-none">Coco Addict</p>
+                  <p class="mt-0.5 text-[9px] uppercase tracking-[0.22em] text-ink-500">Coconut Fanatic Experience</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- floating badges -->
+            <div class="absolute -left-4 top-10 rounded-2xl bg-white/90 px-3 py-2 shadow-soft backdrop-blur animate-float">
+              <p class="text-xs font-medium text-coco-700">🥥 100% fresh coconut</p>
+            </div>
+            <div class="absolute -right-2 bottom-14 rounded-2xl bg-white/90 px-3 py-2 shadow-soft backdrop-blur animate-float-slow">
+              <p class="text-xs font-medium text-coco-700">☕ Stone-ground matcha</p>
+            </div>
+            <div class="absolute -left-2 bottom-6 rounded-2xl bg-coco-500 px-3 py-2 text-white shadow-glow">
+              <p class="text-xs font-semibold">Open daily 7:30–16:30</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- marquee strip -->
+      <div class="mt-20 overflow-hidden border-y border-coco-100 py-6">
+        <div class="marquee flex items-center gap-12 whitespace-nowrap text-ink-400">
+          <span class="font-script text-2xl">Coconut Americano</span>
+          <span>•</span>
+          <span class="text-sm uppercase tracking-[0.3em]">Bangkok Est. · Lumphini</span>
+          <span>•</span>
+          <span class="font-script text-2xl">Coco Latte</span>
+          <span>•</span>
+          <span class="text-sm uppercase tracking-[0.3em]">Fresh Daily</span>
+          <span>•</span>
+          <span class="font-script text-2xl">Thai Milk Tea</span>
+          <span>•</span>
+          <span class="text-sm uppercase tracking-[0.3em]">Dine-in · Pickup · Delivery</span>
+          <span>•</span>
+          <span class="font-script text-2xl">Coconut Smoothie</span>
+          <span>•</span>
+          <span class="text-sm uppercase tracking-[0.3em]">LGBTQ+ Friendly</span>
+          <span>•</span>
+          <!-- duplicate -->
+          <span class="font-script text-2xl">Coconut Americano</span>
+          <span>•</span>
+          <span class="text-sm uppercase tracking-[0.3em]">Bangkok Est. · Lumphini</span>
+          <span>•</span>
+          <span class="font-script text-2xl">Coco Latte</span>
+          <span>•</span>
+          <span class="text-sm uppercase tracking-[0.3em]">Fresh Daily</span>
+          <span>•</span>
+          <span class="font-script text-2xl">Thai Milk Tea</span>
+          <span>•</span>
+          <span class="text-sm uppercase tracking-[0.3em]">Dine-in · Pickup · Delivery</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============= FEATURED DRINKS ============= -->
+  <section id="featured" class="relative py-24 md:py-32">
+    <div class="mx-auto max-w-7xl px-5 md:px-8">
+      <div class="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+        <div class="max-w-2xl">
+          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-coco-500">Signatures</p>
+          <h2 class="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
+            The <span class="font-script text-coco-500">house favourites</span>.
+          </h2>
+          <p class="mt-4 text-ink-500">
+            Four drinks our regulars can't leave without. Every cup is poured over our signature cold coconut milk base.
+          </p>
+        </div>
+        <a href="#menu" class="inline-flex items-center gap-2 text-sm font-medium text-coco-700 hover:gap-3 transition-all">
+          See the full menu
+          <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div id="featuredGrid" class="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"></div>
+    </div>
+  </section>
+
+  <!-- ============= GALLERY ============= -->
+  <section id="gallery" class="relative py-20 md:py-28">
+    <div class="mx-auto max-w-7xl px-5 md:px-8">
+      <div class="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+        <div class="max-w-2xl">
+          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-coco-500">Inside the shop</p>
+          <h2 class="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
+            A look around <span class="font-script text-coco-500">Coco Addict</span>.
+          </h2>
+          <p class="mt-4 text-ink-500">
+            Fresh pastries, coconut classics, and a relaxed little storefront on Soi Sanamklee.
+          </p>
+        </div>
+        <a href="#location" class="inline-flex items-center gap-2 text-sm font-medium text-coco-700 hover:gap-3 transition-all">
+          Come visit
+          <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div id="galleryGrid" class="mt-10 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-5"></div>
+
+      <!-- snack box teaser -->
+      <div class="mt-14 grid items-center gap-8 rounded-[32px] border border-coco-100 bg-gradient-to-br from-coco-50 via-white to-sand-100 p-8 md:grid-cols-5 md:p-10">
+        <div class="md:col-span-2">
+          <div class="gallery-tile aspect-[4/3] overflow-hidden rounded-[22px]" data-img="assets/images/snack-box.jpg">
+            <div class="fallback grid h-full w-full place-items-center bg-gradient-to-br from-sand-200 to-coco-100 text-coco-700">
+              <div class="text-center">
+                <p class="font-script text-3xl">Snack Box</p>
+                <p class="text-xs uppercase tracking-widest">70+ items</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="md:col-span-3">
+          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-coco-500">New</p>
+          <h3 class="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">Customisable Snack Box Set</h3>
+          <p class="mt-4 text-ink-500">
+            Pick from 70+ items — sandwiches, mini cakes, savoury bites — and build a box for your team, your class, or your family. Delivery across Bangkok.
+          </p>
+          <div class="mt-6 flex flex-wrap items-center gap-3">
+            <a href="tel:+66634692696" class="inline-flex items-center gap-2 rounded-full bg-ink-900 px-5 py-3 text-sm font-medium text-white hover:bg-coco-700 transition">Order a box</a>
+            <span class="text-sm text-ink-500">Call 063 469 2696</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============= MENU ============= -->
+  <section id="menu" class="relative bg-coco-50/60 py-24 md:py-32">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
+      <div class="absolute -top-24 right-0 h-[300px] w-[300px] rounded-full bg-coco-200/40 blur-3xl"></div>
+    </div>
+    <div class="relative mx-auto max-w-7xl px-5 md:px-8">
+      <div class="max-w-2xl">
+        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-coco-500">The Menu</p>
+        <h2 class="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
+          Everything on the <span class="font-script text-coco-500">board</span>.
+        </h2>
+        <p class="mt-4 text-ink-500">
+          Prices shown as <em>Hot / Iced / Coco-Iced</em> where available. Toggle between temperatures to emphasise what you're after.
+        </p>
+      </div>
+
+      <!-- controls -->
+      <div class="mt-10 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <!-- category filter -->
+        <div id="catFilter" class="flex flex-wrap gap-2">
+          <button data-cat="all"       class="cat-chip is-active">All</button>
+          <button data-cat="coffee"    class="cat-chip">Coffee</button>
+          <button data-cat="tea"       class="cat-chip">Tea</button>
+          <button data-cat="others"    class="cat-chip">Others</button>
+          <button data-cat="smoothie"  class="cat-chip">Smoothie</button>
+          <button data-cat="slushy"    class="cat-chip">Slushy</button>
+          <button data-cat="iceCream"  class="cat-chip">Ice Cream</button>
+        </div>
+        <!-- hot/iced toggle -->
+        <div id="tempToggle" class="inline-flex items-center rounded-full border border-coco-200 bg-white p-1 shadow-soft">
+          <button data-temp="hot"  class="temp-btn"><span class="mr-1.5">♨</span>Hot</button>
+          <button data-temp="iced" class="temp-btn is-active"><span class="mr-1.5">❄</span>Iced</button>
+        </div>
+      </div>
+
+      <!-- menu grid -->
+      <div id="menuGrid" class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3"></div>
+    </div>
+  </section>
+
+  <!-- ============= ABOUT ============= -->
+  <section id="about" class="relative py-24 md:py-32">
+    <div class="mx-auto max-w-7xl px-5 md:px-8">
+      <div class="grid items-center gap-16 lg:grid-cols-2">
+        <div class="relative">
+          <div class="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-[40px] bg-gradient-to-br from-coco-100 via-white to-sand-100 shadow-soft">
+            <!-- optional real storefront photo -->
+            <div class="about-photo absolute inset-0" data-img="assets/images/storefront.jpg"></div>
+            <!-- palm leaf decoration -->
+            <svg viewBox="0 0 400 500" class="absolute inset-0 h-full w-full mix-blend-multiply">
+              <g fill="none" stroke="#5CA682" stroke-width="2" opacity=".22">
+                <path d="M380 500 C 360 380 320 260 260 180"/>
+                <path d="M260 180 q 50 0 80 -40"/>
+                <path d="M260 180 q -10 -50 30 -90"/>
+                <path d="M300 230 q 50 -10 80 -60"/>
+                <path d="M320 290 q 50 -20 90 -70"/>
+              </g>
+            </svg>
+            <div class="absolute inset-0 grid place-items-center bg-white/50 backdrop-blur-[1px]">
+              <div class="flex flex-col items-center text-center px-6">
+                <img src="assets/logo.svg" alt="Coco Addict logo" class="h-32 w-32"/>
+                <p class="mt-4 font-script text-5xl text-ink-900 leading-none">Coco Addict</p>
+                <p class="mt-2 text-xs uppercase tracking-[0.28em] text-ink-500">Coconut Fanatic Experience</p>
+                <div class="mx-auto mt-6 h-px w-16 bg-coco-400/50"></div>
+                <p class="mt-4 text-xs uppercase tracking-[0.22em] text-ink-400">Est. Bangkok</p>
+              </div>
+            </div>
+          </div>
+          <!-- floating testimonial -->
+          <div class="absolute -bottom-6 -right-2 max-w-[240px] rounded-2xl bg-white p-4 shadow-soft ring-1 ring-coco-100 hidden sm:block">
+            <div class="flex items-center gap-1 text-coco-500">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+              <span class="ml-1 text-xs text-ink-500">4.6</span>
+            </div>
+            <p class="mt-2 text-sm text-ink-700">"Hidden gem between the parks."</p>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-coco-500">Our Story</p>
+          <h2 class="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
+            A cozy <span class="font-script text-coco-500">coconut</span> corner in Bangkok.
+          </h2>
+          <p class="mt-6 text-lg text-ink-500">
+            Coco Addict is a small, coconut-obsessed café tucked along Soi Sanamklee in Lumphini.
+            We serve refreshing drinks, quiet moments, and easy conversation — a little breather
+            between the parks and the city.
+          </p>
+          <p class="mt-4 text-ink-500">
+            Every espresso is pulled over our signature cold coconut milk, every matcha is whisked
+            the slow way, and every scoop of coconut ice-cream comes with three toppings on the house.
+            Simple things, done with love.
+          </p>
+
+          <div class="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-3">
+            <div class="rounded-2xl border border-coco-100 bg-white p-5">
+              <div class="text-3xl font-semibold text-coco-600">7:30<span class="text-sm align-top">AM</span></div>
+              <p class="mt-1 text-xs uppercase tracking-widest text-ink-400">Opens daily</p>
+            </div>
+            <div class="rounded-2xl border border-coco-100 bg-white p-5">
+              <div class="text-3xl font-semibold text-coco-600">4.6<span class="text-sm align-top">★</span></div>
+              <p class="mt-1 text-xs uppercase tracking-widest text-ink-400">27 reviews</p>
+            </div>
+            <div class="rounded-2xl border border-coco-100 bg-white p-5">
+              <div class="text-3xl font-semibold text-coco-600">3<span class="text-sm align-top">ways</span></div>
+              <p class="mt-1 text-xs uppercase tracking-widest text-ink-400">Dine-in · Pickup · Delivery</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============= REVIEWS ============= -->
+  <section id="reviews" class="relative bg-gradient-to-b from-white via-coco-50/50 to-white py-24 md:py-32">
+    <div class="mx-auto max-w-7xl px-5 md:px-8">
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-coco-500">Guests Say</p>
+        <h2 class="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
+          Little <span class="font-script text-coco-500">love notes</span> from our guests.
+        </h2>
+        <div class="mt-6 inline-flex items-center gap-3 rounded-full border border-coco-200 bg-white px-5 py-2 text-sm">
+          <span class="flex items-center text-coco-500">★★★★★</span>
+          <span class="font-semibold">4.6</span>
+          <span class="text-ink-400">· 27 Google reviews</span>
+        </div>
+      </div>
+
+      <div id="reviewGrid" class="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3"></div>
+    </div>
+  </section>
+
+  <!-- ============= LOCATION ============= -->
+  <section id="location" class="relative py-24 md:py-32">
+    <div class="mx-auto max-w-7xl px-5 md:px-8">
+      <div class="grid gap-10 lg:grid-cols-5">
+        <div class="lg:col-span-2">
+          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-coco-500">Find Us</p>
+          <h2 class="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
+            Drop in for a <span class="font-script text-coco-500">chat</span>.
+          </h2>
+          <p class="mt-5 text-ink-500">Between Lumphini and Benjasiri parks — the walk is worth it.</p>
+
+          <dl class="mt-10 space-y-6">
+            <div class="flex gap-4">
+              <div class="mt-1 grid h-10 w-10 flex-none place-items-center rounded-xl bg-coco-100 text-coco-700">
+                <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div>
+                <dt class="text-xs uppercase tracking-widest text-ink-400">Address</dt>
+                <dd class="mt-1 text-ink-900">10, 3 Soi Sanamklee, Lumphini,<br/>Pathum Wan, Bangkok 10330</dd>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="mt-1 grid h-10 w-10 flex-none place-items-center rounded-xl bg-coco-100 text-coco-700">
+                <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              </div>
+              <div>
+                <dt class="text-xs uppercase tracking-widest text-ink-400">Hours</dt>
+                <dd class="mt-1 text-ink-900">Daily 7:30 AM – 4:30 PM</dd>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="mt-1 grid h-10 w-10 flex-none place-items-center rounded-xl bg-coco-100 text-coco-700">
+                <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2Z"/></svg>
+              </div>
+              <div>
+                <dt class="text-xs uppercase tracking-widest text-ink-400">Phone</dt>
+                <dd class="mt-1"><a href="tel:+66634692696" class="text-ink-900 hover:text-coco-600">063 469 2696</a></dd>
+              </div>
+            </div>
+          </dl>
+
+          <div class="mt-10 flex flex-wrap gap-3">
+            <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Coco+Addict+Lumphini+Bangkok"
+               class="inline-flex items-center gap-2 rounded-full bg-ink-900 px-5 py-3 text-sm font-medium text-white hover:bg-coco-700 transition">
+              Get Directions
+              <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+            </a>
+            <a href="tel:+66634692696" class="inline-flex items-center gap-2 rounded-full border border-coco-300 px-5 py-3 text-sm font-medium text-coco-700 hover:bg-coco-50 transition">
+              Call shop
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:col-span-3">
+          <div class="overflow-hidden rounded-[32px] border border-coco-100 shadow-soft">
+            <iframe
+              title="Coco Addict location"
+              src="https://maps.google.com/maps?q=10+Soi+Sanamklee+Lumphini+Pathum+Wan+Bangkok&t=m&z=16&output=embed&iwloc=near"
+              width="100%" height="520" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              style="border:0; display:block;">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============= FOOTER ============= -->
+  <footer class="border-t border-coco-100 bg-white">
+    <div class="mx-auto max-w-7xl px-5 py-16 md:px-8">
+      <div class="grid gap-10 md:grid-cols-4">
+        <div class="md:col-span-2">
+          <div class="flex items-center gap-3">
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-coco-50">
+              <img src="assets/logo.svg" alt="Coco Addict" class="h-8 w-8"/>
+            </span>
+            <div>
+              <div class="font-script text-3xl">Coco Addict</div>
+              <div class="text-[10px] uppercase tracking-[0.28em] text-ink-500">Coconut Fanatic Experience</div>
+            </div>
+          </div>
+          <p class="mt-5 max-w-md text-sm text-ink-500">
+            A cozy coconut-themed café in Lumphini, Bangkok. Refreshing drinks, a relaxing vibe,
+            and genuinely good coffee — open every day from 7:30 AM.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-semibold uppercase tracking-widest text-ink-400">Visit</h4>
+          <p class="mt-4 text-sm text-ink-700">10, 3 Soi Sanamklee,<br/>Lumphini, Pathum Wan,<br/>Bangkok 10330</p>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-semibold uppercase tracking-widest text-ink-400">Contact</h4>
+          <ul class="mt-4 space-y-2 text-sm">
+            <li><a href="tel:+66634692696" class="text-ink-700 hover:text-coco-600">063 469 2696</a></li>
+            <li class="text-ink-500">Daily 7:30 AM – 4:30 PM</li>
+            <li><a href="#menu" class="text-ink-700 hover:text-coco-600">View menu</a></li>
+            <li><a href="#location" class="text-ink-700 hover:text-coco-600">Directions</a></li>
+          </ul>
+          <div class="mt-5 flex items-center gap-3">
+            <a href="https://www.facebook.com/cocoaddict" target="_blank" rel="noopener"
+               class="inline-flex items-center gap-2 rounded-full border border-coco-200 bg-white px-4 py-2 text-sm font-medium text-coco-700 hover:bg-coco-50 transition" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor"><path d="M13 22v-8h3l1-4h-4V7.5c0-1.1.3-2 2-2h2V2.2C16.7 2.1 15.5 2 14.3 2 11.7 2 10 3.6 10 6.8V10H7v4h3v8h3Z"/></svg>
+              Coco Addict
+            </a>
+            <a href="#" class="grid h-9 w-9 place-items-center rounded-full border border-coco-200 text-coco-700 hover:bg-coco-50 transition" aria-label="Line">
+              <svg viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor"><path d="M12 3C6.5 3 2 6.6 2 11.1c0 4 3.6 7.4 8.5 8.1.3.1.8.2.9.5.1.3.1.8 0 1.1l-.1.9c0 .3-.2 1 .9.6s6-3.6 8.2-6.1C21.9 14.7 22 13 22 11.1 22 6.6 17.5 3 12 3Z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-14 flex flex-col gap-4 border-t border-coco-100 pt-6 sm:flex-row sm:items-center sm:justify-between">
+        <p class="text-xs text-ink-400">© <span id="year"></span> Coco Addict. Crafted with ♥ in Bangkok.</p>
+        <p class="text-xs text-ink-400">LGBTQ+ friendly · Dine-in · Kerbside pickup · Delivery</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/menu-data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
