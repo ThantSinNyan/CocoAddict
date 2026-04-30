@@ -1,490 +1,390 @@
-/**
- * Coco Addict — UI interactions
- * - Loader fade
- * - Sticky navbar state
- * - Mobile menu
- * - Featured drinks render
- * - Menu render + hot/iced toggle + category filter
- * - Reviews render
- * - Scroll-reveal
- */
-
 (function () {
   'use strict';
 
-  const $  = (sel, el = document) => el.querySelector(sel);
-  const $$ = (sel, el = document) => [...el.querySelectorAll(sel)];
+  const $ = (selector, scope = document) => scope.querySelector(selector);
+  const $$ = (selector, scope = document) => Array.from(scope.querySelectorAll(selector));
 
-  /* ========== Loader ========== */
+  const PHONE_URL = 'tel:+66634692696';
+
+  const state = {
+    category: 'all',
+    search: ''
+  };
+
+  const escapeHTML = (value = '') =>
+    String(value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+
+  const baht = (value) => `฿${value}`;
+
   window.addEventListener('load', () => {
-    // small delay so the animation doesn't flash away
     setTimeout(() => {
       document.body.classList.add('is-loaded');
-      setTimeout(() => {
-        const l = $('#loader');
-        if (l) l.remove();
-      }, 800);
-    }, 350);
+      setTimeout(() => $('#loader')?.remove(), 650);
+    }, 250);
   });
 
-  /* ========== Year ========== */
   const yearEl = $('#year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  /* ========== Sticky navbar on scroll ========== */
-  const nav = $('#navbar');
-  const onScroll = () => {
-    if (window.scrollY > 20) nav.classList.add('is-scrolled');
-    else nav.classList.remove('is-scrolled');
+  const navbar = $('#navbar');
+  const updateNav = () => {
+    if (!navbar) return;
+    navbar.classList.toggle('is-scrolled', window.scrollY > 16);
   };
-  document.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  updateNav();
+  document.addEventListener('scroll', updateNav, { passive: true });
 
-  /* ========== Mobile menu ========== */
-  const mToggle = $('#menuToggle');
-  const mMenu = $('#mobileMenu');
-  if (mToggle) {
-    mToggle.addEventListener('click', () => mMenu.classList.toggle('hidden'));
-    $$('#mobileMenu a').forEach(a =>
-      a.addEventListener('click', () => mMenu.classList.add('hidden'))
-    );
-  }
-
-  /* ========== Ice cream SVG ========== */
-  function iceCreamSVG(scoopColor = '#F4ECDD', size = 'h-16 w-16') {
-    return `
-      <svg viewBox="0 0 120 160" class="${size}" xmlns="http://www.w3.org/2000/svg">
-        <!-- cone -->
-        <path d="M36 90 L60 156 L84 90 Z" fill="#E8C87A" stroke="#2C5643" stroke-width="2.5" stroke-linejoin="round"/>
-        <!-- cone grid lines -->
-        <line x1="60" y1="90" x2="46" y2="140" stroke="#2C5643" stroke-width="1" opacity=".5"/>
-        <line x1="60" y1="90" x2="74" y2="140" stroke="#2C5643" stroke-width="1" opacity=".5"/>
-        <line x1="40" y1="106" x2="80" y2="106" stroke="#2C5643" stroke-width="1" opacity=".5"/>
-        <line x1="44" y1="122" x2="76" y2="122" stroke="#2C5643" stroke-width="1" opacity=".5"/>
-        <!-- bottom scoop -->
-        <ellipse cx="60" cy="78" rx="26" ry="18" fill="${scoopColor}" stroke="#2C5643" stroke-width="2.5"/>
-        <!-- top scoop -->
-        <ellipse cx="60" cy="56" rx="22" ry="16" fill="${scoopColor}" stroke="#2C5643" stroke-width="2.5" opacity=".9"/>
-        <!-- peak -->
-        <ellipse cx="60" cy="38" rx="14" ry="12" fill="${scoopColor}" stroke="#2C5643" stroke-width="2.5" opacity=".85"/>
-        <!-- shine dot -->
-        <circle cx="52" cy="34" r="3" fill="#fff" opacity=".6"/>
-      </svg>`;
-  }
-
-  /* ========== Drink SVG — clean cup with logo + liquid colour ========== */
-  let _cupId = 0;
-  function drinkSVG(liquidColor = '#C9A679', size = 'h-40 w-40') {
-    const dark = '#2A1A08';
-    const uid = ++_cupId;
-    return `
-      <svg viewBox="0 0 160 210" class="${size}" xmlns="http://www.w3.org/2000/svg" fill="none">
-        <defs>
-          <linearGradient id="liq_${uid}" x1="0" x2="1" y1="0" y2="0">
-            <stop offset="0"    stop-color="${liquidColor}" stop-opacity="0.85"/>
-            <stop offset="0.45" stop-color="${liquidColor}"/>
-            <stop offset="1"    stop-color="${liquidColor}" stop-opacity="0.75"/>
-          </linearGradient>
-          <clipPath id="cc_${uid}">
-            <path d="M28 52 L38 188 C38.5 194 43 198 49 198 L111 198 C117 198 121.5 194 122 188 L132 52 Z"/>
-          </clipPath>
-        </defs>
-
-        <!-- cup liquid fill -->
-        <path d="M28 52 L38 188 C38.5 194 43 198 49 198 L111 198 C117 198 121.5 194 122 188 L132 52 Z"
-              fill="url(#liq_${uid})"/>
-
-        <!-- shine strip -->
-        <g clip-path="url(#cc_${uid})">
-          <path d="M28 52 L36 188 L52 188 L44 52 Z" fill="#ffffff" opacity="0.22"/>
-        </g>
-
-        <!-- cup outline -->
-        <path d="M28 52 L38 188 C38.5 194 43 198 49 198 L111 198 C117 198 121.5 194 122 188 L132 52 Z"
-              stroke="${dark}" stroke-width="2.5"/>
-
-        <!-- lid -->
-        <ellipse cx="80" cy="54" rx="52" ry="8" fill="#EDEAE4" stroke="#B8B098" stroke-width="1.2"/>
-        <ellipse cx="80" cy="51" rx="49" ry="6" fill="#F5F2EC" opacity="0.8"/>
-
-        <!-- straw slot -->
-        <rect x="76" y="38" width="8" height="18" rx="2.5" fill="#D8D4CC" stroke="#B0A898" stroke-width="1"/>
-
-        <!-- ── logo on cup ── -->
-        <circle cx="80" cy="130" r="28" fill="none" stroke="${dark}" stroke-width="1.6" opacity="0.7"/>
-        <!-- coconut bowl -->
-        <circle cx="80" cy="133" r="11" fill="none" stroke="${dark}" stroke-width="1.5" opacity="0.7"/>
-        <!-- rim arc -->
-        <path d="M73 129 Q80 126 87 129" stroke="${dark}" stroke-width="1.3" fill="none" opacity="0.7"/>
-        <!-- drips -->
-        <line x1="75" y1="130" x2="75" y2="133" stroke="${dark}" stroke-width="1.2" opacity="0.7"/>
-        <line x1="80" y1="128" x2="80" y2="132" stroke="${dark}" stroke-width="1.2" opacity="0.7"/>
-        <line x1="85" y1="130" x2="85" y2="133" stroke="${dark}" stroke-width="1.2" opacity="0.7"/>
-        <!-- umbrella -->
-        <path d="M68 128 L73 122 L78 128 Z" fill="${dark}" opacity="0.7"/>
-        <line x1="73" y1="128" x2="76" y2="132" stroke="${dark}" stroke-width="1.2" opacity="0.7"/>
-        <!-- syringe -->
-        <g transform="rotate(18 88 122)" opacity="0.7">
-          <line x1="85" y1="118" x2="91" y2="118" stroke="${dark}" stroke-width="1.8"/>
-          <line x1="88" y1="118" x2="88" y2="123" stroke="${dark}" stroke-width="1.2"/>
-          <rect x="86" y="123" width="4" height="7" stroke="${dark}" stroke-width="1.2"/>
-          <line x1="88" y1="130" x2="88" y2="134" stroke="${dark}" stroke-width="1.2"/>
-        </g>
-        <!-- wordmark -->
-        <text x="80" y="153" text-anchor="middle"
-              font-family="Caveat,cursive" font-size="9.5" font-weight="700"
-              fill="${dark}" opacity="0.7">Coco Addict</text>
-      </svg>`;
-  }
-
-  /* ========== Photo tile loader ==========
-     For every element that has data-img="path/to/file.jpg",
-     attempt to load the image. If it loads, inject it as an <img>.
-     The CSS .fallback child stays visible until/unless the image loads.
-  ========== */
-  function loadPhoto(el, src) {
-    if (!el || !src) return;
-    const img = new Image();
-    img.onload = () => {
-      img.classList.add('photo-img');
-      img.alt = el.dataset.label || '';
-      el.appendChild(img);
-      /* next frame so transition fires */
-      requestAnimationFrame(() => requestAnimationFrame(() => img.classList.add('loaded')));
-    };
-    img.src = src;
-  }
-
-  /* Scan the whole document for data-img elements on DOMContentLoaded */
-  document.querySelectorAll('[data-img]').forEach(el => {
-    loadPhoto(el, el.dataset.img);
-  });
-
-  /* ========== Gallery ========== */
-  const galleryGrid = $('#galleryGrid');
-  if (galleryGrid && window.COCO_GALLERY) {
-    galleryGrid.innerHTML = window.COCO_GALLERY.map((g, i) => `
-      <div class="gallery-tile${g.tall ? ' tall' : ''} reveal"
-           data-img="${g.img}" data-label="${g.label}"
-           style="transition-delay:${i * 55}ms">
-        <div class="fallback bg-gradient-to-br ${g.bg} h-full min-h-[180px] grid place-items-center">
-          <p class="font-script text-xl text-coco-700/70">${g.label}</p>
-        </div>
-        ${g.soon ? '<span class="badge-soon">Coming Soon</span>' : ''}
-      </div>
-    `).join('');
-
-    /* load photos for newly created tiles */
-    galleryGrid.querySelectorAll('[data-img]').forEach(el => {
-      loadPhoto(el, el.dataset.img);
+  const menuToggle = $('#menuToggle');
+  const mobileMenu = $('#mobileMenu');
+  if (menuToggle && mobileMenu) {
+    menuToggle.addEventListener('click', () => {
+      const isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
+      menuToggle.setAttribute('aria-expanded', String(!isOpen));
+      mobileMenu.classList.toggle('hidden', isOpen);
     });
-    observeReveal(galleryGrid);
+
+    $$('a', mobileMenu).forEach((link) => {
+      link.addEventListener('click', () => {
+        menuToggle.setAttribute('aria-expanded', 'false');
+        mobileMenu.classList.add('hidden');
+      });
+    });
   }
 
-  /* ========== Featured drinks ========== */
-  const featuredGrid = $('#featuredGrid');
-  if (featuredGrid && window.COCO_FEATURED) {
-    featuredGrid.innerHTML = window.COCO_FEATURED.map((d, i) => `
-      <article class="feat-card reveal" style="transition-delay:${i * 80}ms">
-        <div class="feat-visual bg-gradient-to-br ${d.gradient} overflow-hidden"
-             data-img="${d.img || ''}" data-label="${d.name}">
-          <div class="feat-svg-fallback">
-            ${d.cupSvg
-              ? `<img src="${d.cupSvg}" alt="${d.name}" class="h-44 w-auto drop-shadow-xl"/>`
-              : drinkSVG(d.drink, 'h-44 w-44 drop-shadow-xl')
-            }
-          </div>
-        </div>
-        <div class="mt-5 flex items-start justify-between gap-3">
+  function updateOpenBadge() {
+    const badge = $('#openBadge');
+    if (!badge) return;
+
+    let minutes = 0;
+    try {
+      const parts = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Asia/Bangkok',
+        hour: '2-digit',
+        minute: '2-digit',
+        hourCycle: 'h23'
+      }).formatToParts(new Date());
+      const hour = Number(parts.find((part) => part.type === 'hour')?.value || 0);
+      const minute = Number(parts.find((part) => part.type === 'minute')?.value || 0);
+      minutes = hour * 60 + minute;
+    } catch {
+      const now = new Date();
+      minutes = now.getHours() * 60 + now.getMinutes();
+    }
+
+    const opens = 7 * 60 + 30;
+    const closes = 16 * 60 + 30;
+    const isOpen = minutes >= opens && minutes < closes;
+    badge.classList.toggle('is-closed', !isOpen);
+    $('.open-now-text', badge).textContent = isOpen ? 'Open now' : 'Closed now';
+    $('.open-now-detail', badge).textContent = isOpen ? 'Until 4:30 PM today' : 'Opens daily at 7:30 AM';
+  }
+  updateOpenBadge();
+
+  function initials(name) {
+    return name
+      .split(/\s+/)
+      .map((word) => word[0])
+      .filter(Boolean)
+      .slice(0, 2)
+      .join('')
+      .toUpperCase();
+  }
+
+  function categoryLabel(categoryId) {
+    return window.COCO_CATEGORIES?.find((category) => category.id === categoryId)?.label || categoryId;
+  }
+
+  function imageBlock(className, src, alt, label) {
+    const safeLabel = escapeHTML(label || 'Coco Addict');
+    return `
+      <div class="${className}">
+        <div class="image-fallback">
           <div>
-            <h3 class="text-lg font-semibold leading-tight">${d.name}</h3>
-            <p class="mt-1 text-xs text-ink-400">${d.thai}</p>
+            <img src="assets/logo.svg" alt="" />
+            <p class="mt-2 font-script text-2xl">${safeLabel}</p>
           </div>
-          <span class="shrink-0 rounded-full bg-coco-100 px-3 py-1 text-sm font-semibold text-coco-700">฿${d.price}</span>
         </div>
-        <p class="mt-3 text-sm text-ink-500">${d.desc}</p>
+        ${src ? `<img src="${escapeHTML(src)}" alt="${escapeHTML(alt)}" loading="lazy" onerror="this.remove()" />` : ''}
+      </div>
+    `;
+  }
+
+  function renderFeatured() {
+    const grid = $('#featuredGrid');
+    if (!grid || !Array.isArray(window.COCO_FEATURED)) return;
+
+    grid.innerHTML = window.COCO_FEATURED.map((item, index) => `
+      <article class="featured-card reveal" style="transition-delay:${index * 45}ms">
+        ${imageBlock('featured-media', item.img, item.name, item.category)}
+        <div class="featured-copy">
+          <span class="badge">${escapeHTML(item.badge)}</span>
+          <h3>${escapeHTML(item.name)}</h3>
+          ${item.thai ? `<p class="thai-name">${escapeHTML(item.thai)}</p>` : ''}
+          <p class="item-description">${escapeHTML(item.desc)}</p>
+          <div class="price-line">
+            <span class="price">${baht(item.price)}</span>
+            <a class="order-link" href="${PHONE_URL}">Call to order</a>
+          </div>
+        </div>
       </article>
     `).join('');
+    observeReveal(grid);
+  }
 
-    /* load real photos into featured visuals */
-    featuredGrid.querySelectorAll('[data-img]').forEach(el => {
-      if (el.dataset.img) loadPhoto(el, el.dataset.img);
+  function renderCategoryFilters() {
+    const filters = $('#categoryFilters');
+    if (!filters || !Array.isArray(window.COCO_CATEGORIES)) return;
+
+    filters.innerHTML = [
+      { id: 'all', label: 'All' },
+      ...window.COCO_CATEGORIES
+    ].map((category) => `
+      <button type="button" class="filter-chip${category.id === state.category ? ' is-active' : ''}" data-category="${category.id}">
+        ${escapeHTML(category.label)}
+      </button>
+    `).join('');
+
+    filters.addEventListener('click', (event) => {
+      const button = event.target.closest('.filter-chip');
+      if (!button) return;
+      state.category = button.dataset.category;
+      $$('.filter-chip', filters).forEach((chip) => chip.classList.toggle('is-active', chip === button));
+      renderMenu();
     });
-    observeReveal(featuredGrid);
   }
 
-  /* ========== Menu render ========== */
-  const menuGrid = $('#menuGrid');
-  const catFilter = $('#catFilter');
+  function searchableText(item) {
+    return [
+      item.name,
+      item.thai,
+      item.badge,
+      item.desc,
+      categoryLabel(item.category)
+    ].filter(Boolean).join(' ').toLowerCase();
+  }
 
-  function menuOrder() {
-    if (Array.isArray(window.COCO_MENU_ORDER) && window.COCO_MENU_ORDER.length) {
-      return window.COCO_MENU_ORDER.filter(catKey => window.COCO_MENU?.[catKey]);
+  function priceMarkup(item) {
+    if (Array.isArray(item.prices) && item.prices.length) {
+      return item.prices.map((price) => `
+        <span class="price-token">${escapeHTML(price.label)} <strong>${baht(price.value)}</strong></span>
+      `).join('');
     }
-    return Object.keys(window.COCO_MENU || {});
-  }
 
-  function renderCategoryFilter() {
-    if (!catFilter || !window.COCO_MENU) return;
-    const chips = [
-      '<button data-cat="all" class="cat-chip is-active">All</button>',
-      ...menuOrder().map(catKey => (
-        `<button data-cat="${catKey}" class="cat-chip">${window.COCO_MENU[catKey].label}</button>`
-      ))
-    ];
-    catFilter.innerHTML = chips.join('');
-  }
-
-  function tempPill(label, tempKey, value) {
-    const unavailable = value == null;
-    return `
-      <div class="price-pill ${unavailable ? 'unavailable' : ''}" data-temp="${tempKey}">
-        <span class="label">${label}</span>
-        <span class="amount">${unavailable ? '�' : '&#3647;' + value}</span>
-      </div>`;
-  }
-
-  function foodPlaceholderContent(item, catKey) {
-    if (catKey === 'iceCream') {
-      return iceCreamSVG(randomLiquid(item.name), 'h-14 w-14');
+    if (Number.isFinite(item.price)) {
+      return `<span class="price-token">Price <strong>${baht(item.price)}</strong></span>`;
     }
-    return `
-      <div class="food-card-monogram">
-        <span>${item.name.split(/\s+/)[0].slice(0, 3).toUpperCase()}</span>
-      </div>`;
+
+    return '<span class="price-token">Ask in shop</span>';
   }
 
-  function renderDrinkMedia(item) {
-    const fallback = `<div class="drink-card-placeholder">${drinkSVG(randomLiquid(item.name), 'h-16 w-16')}</div>`;
-    if (!item.img) return fallback;
+  function renderMenuCard(item, index) {
+    const category = categoryLabel(item.category);
     return `
-      <div class="drink-card-media-frame">
-        <img src="${item.img}" alt="${item.name}"
-             class="drink-real-img"
-             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-        <div class="drink-card-placeholder" style="display:none">${drinkSVG(randomLiquid(item.name), 'h-16 w-16')}</div>
-      </div>`;
-  }
-
-  function renderFoodMedia(item, catKey) {
-    const fallbackInner = foodPlaceholderContent(item, catKey);
-    if (!item.img) {
-      return `<div class="food-card-placeholder">${fallbackInner}</div>`;
-    }
-    return `
-      <div class="food-card-media-frame">
-        <img src="${item.img}" alt="${item.name}"
-             class="food-real-img"
-             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-        <div class="food-card-placeholder" style="display:none">${fallbackInner}</div>
-      </div>`;
-  }
-
-  function renderDrinkCard(item, catKey, catLabel) {
-    return `
-      <article class="menu-card drink-card reveal" data-cat="${catKey}">
-        <div class="drink-card-body">
-          <div class="drink-card-copy">
-            <div class="drink-card-header">
-              <div class="drink-card-text">
-                <p class="menu-cat-label">${catLabel}</p>
-                <h3 class="menu-name mt-1">${item.name}</h3>
-                <p class="menu-thai">${item.thai}</p>
-              </div>
-              <div class="drink-card-media">
-                ${renderDrinkMedia(item)}
-              </div>
-            </div>
-            <div class="price-row drink-price-row">
-              ${tempPill('Hot', 'hot', item.prices.hot)}
-              ${tempPill('Iced', 'iced', item.prices.iced)}
-              ${tempPill('Coco-Iced', 'coco', item.prices.coco)}
-            </div>
+      <article class="menu-card reveal" style="transition-delay:${Math.min(index * 20, 160)}ms">
+        ${imageBlock('menu-media', item.img, item.name, item.name)}
+        <div class="menu-content">
+          <div class="menu-meta">
+            <span class="menu-category">${escapeHTML(category)}</span>
+            ${item.badge ? `<span class="badge">${escapeHTML(item.badge)}</span>` : ''}
+          </div>
+          <h3>${escapeHTML(item.name)}</h3>
+          ${item.thai ? `<p class="thai-name">${escapeHTML(item.thai)}</p>` : ''}
+          <p class="item-description">${escapeHTML(item.desc || 'A Coco Addict cafe favorite.')}</p>
+          <div class="price-options">
+            ${priceMarkup(item)}
+            <a class="price-token order-link" href="${PHONE_URL}">Order</a>
           </div>
         </div>
-      </article>`;
-  }
-
-  function renderFoodCard(item, catKey, catLabel) {
-    return `
-      <article class="menu-card food-card reveal" data-cat="${catKey}">
-        <div class="food-card-body">
-          <div class="food-card-media">
-            ${renderFoodMedia(item, catKey)}
-          </div>
-          <div class="food-card-content">
-            <p class="menu-cat-label">${catLabel}</p>
-            <h3 class="menu-name mt-2">${item.name}</h3>
-            <p class="menu-thai">${item.thai}</p>
-            <div class="food-card-price">
-              <span class="food-card-price-label">Price</span>
-              <span class="food-card-price-value">&#3647;${item.price}</span>
-            </div>
-          </div>
-        </div>
-      </article>`;
-  }
-
-  function renderMenuCard(item, catKey, catLabel) {
-    if (item.kind === 'drink') return renderDrinkCard(item, catKey, catLabel);
-    return renderFoodCard(item, catKey, catLabel);
-  }
-
-  function randomLiquid(name) {
-    const map = {
-      'AM Americano': '#3E2B1C',
-      'ES Espresso': '#2A1A0E',
-      'CP Cappuccino': '#C9A679',
-      'LT Latte': '#B8875A',
-      'MC Mocha': '#4A2C1E',
-      'CB Cold Brew': '#362417',
-      'CM Caramel Macchiato': '#B97845',
-      'HM Hazelnut Macchiato': '#8D5C3B',
-      'AO Americano Orange': '#C56D2C',
-      'AHL Americano Honey Lemon': '#C5913E',
-      'MT Matcha Green Tea': '#8FB877',
-      'TTL Lemon Tea': '#E2A65C',
-      'THL Honey Lemon Tea': '#E6B36A',
-      'TMT Thai Milk Tea': '#E29863',
-      'TTC Iced Black Tea with Coconut': '#756347',
-      'MF Matcha Coconut Cream Foam': '#92B978',
-      'CO Cocoa': '#5A3A26',
-      'CH Chocolate': '#4B2C1E',
-      'ACH Butterfly Pea Lemon Soda': '#6E7FC2',
-      'LS Lemon Soda': '#D9D564',
-      'LF Coconut Latte Cream Foam': '#E5D5BC',
-      'Coconut Water': '#EDE6D5',
-      'Fresh Orange Juice': '#F2A14C',
-      'ACHC Butterfly Pea Lemon Concentrate': '#6F71B8',
-      'Coconut Smoothie with Fresh Milk': '#F4ECDD',
-      'Fresh Orange Blended': '#F0A24C',
-      'Fresh Lemon Blended': '#E7D865',
-      'Thai Milk Tea Ice Flakes': '#E29863',
-      'Butterfly Pea Lemon Soda Ice Flakes': '#6E7FC2',
-      'Coconut Ice Cream': '#F5EDD8',
-      'Gelato Malt Biscuit Cookie': '#D9C7A1',
-      'Gelato Yogurt Jelly': '#F0C6D0',
-      'MI Matcha Ice Cream': '#9BC07B',
-      'LCH Lod Chong Wat Chet': '#8DB46F',
-      'CHK Grass Jelly Ovaltine Blended': '#6C5848',
-      'PD Coconut Milk Pudding': '#F3E7D2',
-      'PD Coconut Milk Pudding x 3': '#F3E7D2',
-      'CHB Butter Shortbread': '#E7CB8A',
-      'CHS Strawberry Shortbread': '#E7A1A7',
-      'CP Caramel Popcorn': '#C98942',
-      'MP Milo School Bus Popcorn': '#8B5A3B',
-      'Fresh Marian Plum': '#F0BE56',
-      'Crispy Kale, Original Flavor': '#7FB16F',
-      'Crispy Baked Chips with Sriracha Mayo Flavor': '#B65E42',
-      'Crispy Baked Zucchini, Original Flavor': '#98B672',
-      'Crispy Zucchini with Sriracha Mayo Flavor': '#C06A48',
-      'Crispy Cos Ros Cereal with Caesar Salad Flavor': '#B4C476',
-      'CK Fresh Shredded Chicken Sandwich': '#D5AA76',
-      'BM Butter Milk Bread': '#E5C98D',
-      'BS Butter Sugar Bread': '#E7D49A',
-      'OV Ovaltine Volcano Bread': '#8D5A3A',
-      'NU Nutella Bread': '#6B432B',
-      'CP Spicy Pork and Chicken Floss Bread': '#A85D3D',
-      'PJ Pandan Custard Bread': '#91B277',
-      'TJ Thai Tea Custard Bread': '#D79454',
-      'PTB Peanut Butter Bread': '#B78B56',
-      'NUB Nutella Banana Bread': '#A86F41',
-      'CHC Croissant Ham and Cheese': '#D8B16A',
-      'CA Almond Croissant': '#D0A45F',
-      'CCP Croissant, Coffee, Pecan': '#8E6546',
-      'BN Brioche Nutella': '#A96942',
-      'DC Danish Cream Cheese': '#E8D8B2',
-      'PAC Chocolate Bread': '#6B432B',
-      'PAR Raisin Bread': '#B48C64',
-      'SP Shio Pan (Salted Bread)': '#D9C48C',
-      'FB Fudge Brownies': '#5A3A2A',
-      'CP Plain Croissant': '#D7AA63',
-      'CB Cinnamon Roll Butterfly': '#A96D43',
-      'ET Classic Egg Tart': '#F0CE72'
-    };
-    return map[name] || '#C9A679';
+      </article>
+    `;
   }
 
   function renderMenu() {
-    if (!menuGrid || !window.COCO_MENU) return;
-    const html = menuOrder().flatMap(catKey => {
-      const cat = window.COCO_MENU[catKey];
-      if (!cat) return [];
-      return cat.items.map(item => renderMenuCard(item, catKey, cat.label));
-    }).join('');
-    menuGrid.innerHTML = html;
-    menuGrid.dataset.mode = 'iced';
-    observeReveal(menuGrid);
-  }
-  renderCategoryFilter();
-  renderMenu();
+    const grid = $('#menuGrid');
+    const count = $('#menuCount');
+    if (!grid || !Array.isArray(window.COCO_MENU)) return;
 
-  /* ========== Menu filter ========== */
-  if (catFilter) {
-    catFilter.addEventListener('click', e => {
-      const btn = e.target.closest('.cat-chip');
-      if (!btn) return;
-      $$('.cat-chip', catFilter).forEach(b => b.classList.remove('is-active'));
-      btn.classList.add('is-active');
-      const cat = btn.dataset.cat;
-      $$('.menu-card', menuGrid).forEach(card => {
-        const match = cat === 'all' || card.dataset.cat === cat;
-        card.classList.toggle('is-hidden', !match);
-      });
+    const query = state.search.trim().toLowerCase();
+    const visible = window.COCO_MENU.filter((item) => {
+      const categoryMatch = state.category === 'all' || item.category === state.category;
+      const queryMatch = !query || searchableText(item).includes(query);
+      return categoryMatch && queryMatch;
     });
+
+    if (count) {
+      const categoryText = state.category === 'all' ? 'all categories' : categoryLabel(state.category);
+      count.textContent = `${visible.length} item${visible.length === 1 ? '' : 's'} shown in ${categoryText}`;
+    }
+
+    grid.innerHTML = visible.length
+      ? visible.map(renderMenuCard).join('')
+      : '<div class="empty-state">No menu items match that search yet. Try "coconut", "coffee", or "toast".</div>';
+
+    observeReveal(grid);
   }
 
-  /* ========== Hot / Iced toggle ========== */
-  const tempToggle = $('#tempToggle');
-  if (tempToggle) {
-    tempToggle.addEventListener('click', e => {
-      const btn = e.target.closest('.temp-btn');
-      if (!btn) return;
-      $$('.temp-btn', tempToggle).forEach(b => b.classList.remove('is-active'));
-      btn.classList.add('is-active');
-      menuGrid.dataset.mode = btn.dataset.temp;
-    });
-  }
+  function renderGallery() {
+    const grid = $('#galleryGrid');
+    if (!grid || !Array.isArray(window.COCO_GALLERY)) return;
 
-  /* ========== Reviews ========== */
-  const reviewGrid = $('#reviewGrid');
-  if (reviewGrid && window.COCO_REVIEWS) {
-    const initials = n => n.split(/\s+/).map(w => w[0]).slice(0, 2).join('').toUpperCase();
-    reviewGrid.innerHTML = window.COCO_REVIEWS.map((r, i) => `
-      <article class="review-card reveal" style="transition-delay:${i * 60}ms">
-        <div class="flex items-center gap-3">
-          <div class="avatar ${r.tone}">${initials(r.name)}</div>
+    grid.innerHTML = window.COCO_GALLERY.map((item, index) => `
+      <figure class="gallery-tile${item.tall ? ' tall' : ''} reveal" style="transition-delay:${index * 35}ms">
+        <div class="image-fallback">
           <div>
-            <h4 class="text-sm font-semibold">${r.name}</h4>
-            <p class="text-xs text-ink-400">${r.meta}</p>
+            <img src="assets/logo.svg" alt="" />
+            <p class="mt-2 font-script text-2xl">${escapeHTML(item.label)}</p>
           </div>
         </div>
-        <div class="mt-4 flex text-coco-500">
-          ${'★'.repeat(r.stars)}<span class="text-coco-100">${'★'.repeat(5 - r.stars)}</span>
+        ${item.img ? `<img src="${escapeHTML(item.img)}" alt="${escapeHTML(item.label)}" loading="lazy" onerror="this.remove()" />` : ''}
+        <figcaption class="gallery-caption">${escapeHTML(item.label)}</figcaption>
+      </figure>
+    `).join('');
+
+    observeReveal(grid);
+  }
+
+  function renderReviews() {
+    const grid = $('#reviewGrid');
+    if (!grid || !Array.isArray(window.COCO_REVIEWS)) return;
+
+    grid.innerHTML = window.COCO_REVIEWS.map((review, index) => `
+      <article class="review-card reveal" style="transition-delay:${index * 55}ms">
+        <div class="review-head">
+          <div class="avatar">${escapeHTML(initials(review.name))}</div>
+          <div>
+            <h3 class="text-base font-extrabold text-ink-900">${escapeHTML(review.name)}</h3>
+            <p class="text-sm font-semibold text-ink-500">${escapeHTML(review.meta)}</p>
+          </div>
         </div>
-        <p class="mt-3 text-sm leading-relaxed text-ink-700">"${r.body}"</p>
+        <div class="stars mt-4" aria-label="${review.stars} out of 5 stars">${'★'.repeat(review.stars)}${'☆'.repeat(5 - review.stars)}</div>
+        <p class="mt-3 leading-7 text-ink-700">"${escapeHTML(review.body)}"</p>
+        <div class="mt-4 flex flex-wrap gap-2">
+          ${(review.tags || []).map((tag) => `<span class="review-tag">${escapeHTML(tag)}</span>`).join('')}
+        </div>
       </article>
     `).join('');
-    observeReveal(reviewGrid);
+
+    observeReveal(grid);
   }
 
-  /* ========== Scroll reveal ========== */
-  function observeReveal(scope = document) {
-    if (!('IntersectionObserver' in window)) {
-      $$('.reveal', scope).forEach(el => el.classList.add('in'));
-      return;
+  const searchInput = $('#menuSearch');
+  if (searchInput) {
+    searchInput.addEventListener('input', (event) => {
+      state.search = event.target.value;
+      renderMenu();
+    });
+  }
+
+  function setupSaveShare() {
+    const saveButton = $('[data-save]');
+    const shareButton = $('[data-share]');
+    const savedKey = 'coco-addict-saved';
+
+    const updateSave = () => {
+      if (!saveButton) return;
+      const isSaved = localStorage.getItem(savedKey) === 'true';
+      saveButton.innerHTML = `<span>${isSaved ? '♥' : '♡'}</span>${isSaved ? 'Saved' : 'Save'}`;
+      saveButton.classList.toggle('action-button-strong', isSaved);
+    };
+
+    if (saveButton) {
+      updateSave();
+      saveButton.addEventListener('click', () => {
+        const next = localStorage.getItem(savedKey) !== 'true';
+        localStorage.setItem(savedKey, String(next));
+        updateSave();
+        showToast(next ? 'Coco Addict saved for later.' : 'Removed from saved places.');
+      });
     }
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in');
-          io.unobserve(entry.target);
+
+    if (shareButton) {
+      shareButton.addEventListener('click', async () => {
+        const payload = {
+          title: 'Coco Addict',
+          text: 'Coco Addict - coconut cafe in Lumphini, Bangkok',
+          url: window.location.href
+        };
+
+        try {
+          if (navigator.share) {
+            await navigator.share(payload);
+            return;
+          }
+          await navigator.clipboard.writeText(window.location.href);
+          showToast('Website link copied.');
+        } catch {
+          showToast('Share is ready from your browser menu.');
         }
       });
-    }, { rootMargin: '0px 0px -80px 0px', threshold: 0.08 });
-    $$('.reveal', scope).forEach(el => io.observe(el));
+    }
   }
+
+  let toastTimer = null;
+  function showToast(message) {
+    const toast = $('#toast');
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add('is-visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 2400);
+  }
+
+  function setupActiveNav() {
+    const links = $$('.nav-link');
+    const sections = links
+      .map((link) => {
+        const id = link.getAttribute('href');
+        return id?.startsWith('#') ? $(id) : null;
+      })
+      .filter(Boolean);
+
+    if (!sections.length || !('IntersectionObserver' in window)) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+      if (!visible) return;
+      links.forEach((link) => {
+        link.classList.toggle('is-active', link.getAttribute('href') === `#${visible.target.id}`);
+      });
+    }, { rootMargin: '-25% 0px -60% 0px', threshold: [0.05, 0.25, 0.5] });
+
+    sections.forEach((section) => observer.observe(section));
+  }
+
+  function observeReveal(scope = document) {
+    const items = $$('.reveal', scope);
+    if (!items.length) return;
+
+    if (!('IntersectionObserver' in window)) {
+      items.forEach((item) => item.classList.add('in'));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('in');
+        observer.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -70px 0px', threshold: 0.08 });
+
+    items.forEach((item) => observer.observe(item));
+  }
+
+  renderFeatured();
+  renderCategoryFilters();
+  renderMenu();
+  renderGallery();
+  renderReviews();
+  setupSaveShare();
+  setupActiveNav();
   observeReveal();
-
 })();
-

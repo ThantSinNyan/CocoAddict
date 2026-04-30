@@ -1,265 +1,484 @@
-/**
- * Menu data for Coco Addict.
- * Source of truth: the saved Wongnai x LINE MAN menu snapshot in assets/images/.
- * Menu items are normalized into drink and food records so the UI can render
- * from two consistent component systems only.
- */
-
 const WONGNAI_ASSET_DIR = 'assets/images/Coco Addict, Soi Polo - Order food delivery _ Wongnai x LINE MAN_files';
 const wongnaiPhoto = (file) => `${WONGNAI_ASSET_DIR}/${file}`;
 
-const drinkItem = ({ name, thai, hot = null, iced = null, coco = null, img = null }) => ({
-  kind: 'drink',
-  name,
-  thai,
-  img,
-  prices: { hot, iced, coco }
-});
-
-const foodItem = ({ name, thai, price, img = null }) => ({
-  kind: 'food',
-  name,
-  thai,
-  img,
-  price
-});
-
-window.COCO_MENU_ORDER = [
-  'coffee',
-  'tea',
-  'others',
-  'smoothie',
-  'slushy',
-  'iceCream',
-  'dessert',
-  'salad',
-  'sandwich',
-  'toast',
-  'bakery'
+window.COCO_CATEGORIES = [
+  { id: 'coffee', label: 'Coffee' },
+  { id: 'tea', label: 'Tea' },
+  { id: 'smoothie', label: 'Smoothie' },
+  { id: 'slushy', label: 'Slushy' },
+  { id: 'ice-cream', label: 'Ice Cream' },
+  { id: 'dessert', label: 'Pastry & Dessert' },
+  { id: 'sandwich', label: 'Sandwich' },
+  { id: 'toast', label: 'Toast' },
+  { id: 'bakery', label: 'Bakery' }
 ];
 
-window.COCO_MENU = {
-  coffee: {
-    label: 'Coffee',
-    type: 'drink',
-    items: [
-      drinkItem({ name: 'AM Americano', thai: 'อเมริกาโนร้อน / อเมริกาโนเย็น', hot: 69, iced: 89 }),
-      drinkItem({ name: 'ES Espresso', thai: 'เอสเพรสโซร้อน / เอสเพรสโซเย็น', hot: 59, iced: 99 }),
-      drinkItem({ name: 'CP Cappuccino', thai: 'คาปูชิโนร้อน / คาปูชิโนเย็น', hot: 69, iced: 99 }),
-      drinkItem({ name: 'LT Latte', thai: 'ลาเต้ร้อน / ลาเต้เย็น', hot: 69, iced: 99 }),
-      drinkItem({ name: 'MC Mocha', thai: 'มอคค่าร้อน / มอคค่าเย็น', hot: 69, iced: 99 }),
-      drinkItem({ name: 'CB Cold Brew', thai: 'กาแฟสกัดเย็น', iced: 119 }),
-      drinkItem({ name: 'CM Caramel Macchiato', thai: 'คาราเมล มัคคิอาโต้', hot: 99, iced: 119 }),
-      drinkItem({ name: 'HM Hazelnut Macchiato', thai: 'เฮเซลนัท มัคคิอาโต้', hot: 99, iced: 119 }),
-      drinkItem({ name: 'AO Americano Orange', thai: 'อเมริกาโน่ ส้มคั้นสด', iced: 119 }),
-      drinkItem({ name: 'AHL Americano Honey Lemon', thai: 'อเมริกาโน่ น้ำผึ้ง เลม่อน', iced: 119 })
-    ]
-  },
-  tea: {
-    label: 'Tea',
-    type: 'drink',
-    items: [
-      drinkItem({ name: 'MT Matcha Green Tea', thai: 'ชาเขียวมัทฉะร้อน / ชาเขียวมัทฉะเย็น', hot: 69, iced: 99 }),
-      drinkItem({ name: 'TTL Lemon Tea', thai: 'ชามะนาวร้อน / ชามะนาวเย็น', hot: 69, iced: 99 }),
-      drinkItem({ name: 'THL Honey Lemon Tea', thai: 'ชาน้ำผึ้งมะนาวร้อน / ชาน้ำผึ้งมะนาวเย็น', hot: 69, iced: 99 }),
-      drinkItem({ name: 'TMT Thai Milk Tea', thai: 'ชาไทยนมร้อน / ชานมเย็น', hot: 69, iced: 99 }),
-      drinkItem({ name: 'TTC Iced Black Tea with Coconut', thai: 'ชาดำเย็นมะพร้าว', iced: 119 }),
-      drinkItem({ name: 'MF Matcha Coconut Cream Foam', thai: 'ครีมโฟมมัทฉะมะพร้าว', iced: 119 })
-    ]
-  },
-  others: {
-    label: 'Others',
-    type: 'drink',
-    items: [
-      drinkItem({ name: 'CO Cocoa', thai: 'โกโก้ร้อน / โกโก้เย็น', hot: 69, iced: 99 }),
-      drinkItem({ name: 'CH Chocolate', thai: 'ช็อคโกแลตร้อน / ช็อคโกแลตเย็น', hot: 69, iced: 99 }),
-      drinkItem({ name: 'ACH Butterfly Pea Lemon Soda', thai: 'อัญชันมะนาวโซดา', iced: 99 }),
-      drinkItem({ name: 'LS Lemon Soda', thai: 'น้ำมะนาวโซดา', iced: 79 }),
-      drinkItem({ name: 'LF Coconut Latte Cream Foam', thai: 'ครีมโฟมลาเต้มะพร้าว', iced: 119 }),
-      drinkItem({ name: 'Coconut Water', thai: 'น้ำมะพร้าว', iced: 49 }),
-      drinkItem({ name: 'Fresh Orange Juice', thai: 'น้ำส้มคั้นสด', iced: 59 }),
-      drinkItem({ name: 'All Spring Natural Mineral Water', thai: 'น้ำแร่ธรรมชาติ All Spring 600 มล', iced: 25 }),
-      drinkItem({ name: 'ACHC Butterfly Pea Lemon Concentrate', thai: 'อัญชันมะนาว (เข้มข้น)', iced: 99 })
-    ]
-  },
-  smoothie: {
-    label: 'Smoothie',
-    type: 'drink',
-    note: 'เครื่องดื่มปั่น',
-    items: [
-      drinkItem({ name: 'Coconut Smoothie with Fresh Milk', thai: 'มะพร้าวปั่นนมสด', iced: 99, img: wongnaiPhoto('90023c76782142b38e0c0095fa6c4154.jpg') }),
-      drinkItem({ name: 'Fresh Orange Blended', thai: 'น้ำส้มคั้นสดปั่น', iced: 99 }),
-      drinkItem({ name: 'Fresh Lemon Blended', thai: 'น้ำมะนาวคั้นสดปั่น', iced: 99 })
-    ]
-  },
-  slushy: {
-    label: 'Slushy',
-    type: 'drink',
-    note: 'เครื่องดื่มเกล็ดน้ำแข็ง',
-    items: [
-      drinkItem({ name: 'Thai Milk Tea Ice Flakes', thai: 'ชาไทยนมเกล็ดน้ำแข็ง', iced: 99, img: wongnaiPhoto('3c3ad580e15947d6b77dde8b2b24ed57.jpg') }),
-      drinkItem({ name: 'Butterfly Pea Lemon Soda Ice Flakes', thai: 'อัญชันมะนาวโซดาเกล็ดน้ำแข็ง', iced: 99, img: wongnaiPhoto('82e32df6565f432386c72ef206b3d58b.jpg') })
-    ]
-  },
-  iceCream: {
-    label: 'Ice Cream',
-    type: 'food',
-    note: 'ไอศกรีม',
-    items: [
-      foodItem({ name: 'Coconut Ice Cream', thai: 'ไอศกรีมมะพร้าว', price: 89, img: wongnaiPhoto('d5499177cc914c9390478b6179dbdc08.jpg') }),
-      foodItem({ name: 'Gelato Malt Biscuit Cookie', thai: 'ไอศกรีมเจลาโต้ นมมอล์ทบิสกิตคุกกี้', price: 79 }),
-      foodItem({ name: 'Gelato Yogurt Jelly', thai: 'ไอศกรีมเจลาโต้ รสโยเกิร์ต เยลลี่', price: 79 }),
-      foodItem({ name: 'MI Matcha Ice Cream', thai: 'ไอศกรีมมัทฉะ', price: 79 })
-    ]
-  },
-  dessert: {
-    label: 'Pastry & Dessert',
-    type: 'food',
-    note: 'ขนมและของหวาน',
-    items: [
-      foodItem({ name: 'LCH Lod Chong Wat Chet', thai: 'ลอดช่องวัดเจษปั่น', price: 89, img: wongnaiPhoto('3cb9c9fb4e8349c6a924a84c25cc17b0.jpg') }),
-      foodItem({ name: 'CHK Grass Jelly Ovaltine Blended', thai: 'เฉาก๊วยโอวทึ้งปั่น', price: 89, img: wongnaiPhoto('bd6e7aaa53594e0390b955c5fe1b3970.jpg') }),
-      foodItem({ name: 'PD Coconut Milk Pudding', thai: 'พุดดิ้งมะพร้าวนมสด', price: 59 }),
-      foodItem({ name: 'PD Coconut Milk Pudding x 3', thai: 'พุดดิ้งมะพร้าวนมสด x 3', price: 160 }),
-      foodItem({ name: 'CHB Butter Shortbread', thai: 'ช็อตเบรด เนยสดแท้', price: 49 }),
-      foodItem({ name: 'CHS Strawberry Shortbread', thai: 'ช็อตเบรด สตอร์เบอร์รี่แท้', price: 49 }),
-      foodItem({ name: 'CP Caramel Popcorn', thai: 'ป็อปคอร์น คาราเมล', price: 95 }),
-      foodItem({ name: 'MP Milo School Bus Popcorn', thai: 'ป็อปคอร์น ไมโลรถโรงเรียน', price: 95 }),
-      foodItem({ name: 'Fresh Marian Plum', thai: 'มะยงชิดคว้านสด', price: 109 })
-    ]
-  },
-  salad: {
-    label: 'Crispy Salad',
-    type: 'food',
-    note: 'สลัดอบกรอบ',
-    items: [
-      foodItem({ name: 'Crispy Kale, Original Flavor', thai: 'เคล อบกรอบ รสออริจินัล', price: 100, img: wongnaiPhoto('2fe7958d7e964f0eb417b92f181fbefa.jpg') }),
-      foodItem({ name: 'Crispy Baked Chips with Sriracha Mayo Flavor', thai: 'เคล อบกรอบ รสศรีราชา เมโย', price: 100, img: wongnaiPhoto('5057a7aa49bb44d1843f3fc127bab7cc.jpg') }),
-      foodItem({ name: 'Crispy Baked Zucchini, Original Flavor', thai: 'ซูกินี อบกรอบ รสออริจินัล', price: 75, img: wongnaiPhoto('2cb3bd6343094599880f0248e1523087.jpg') }),
-      foodItem({ name: 'Crispy Zucchini with Sriracha Mayo Flavor', thai: 'ซูกินี อบกรอบ รสศรีราชา เมโย', price: 75, img: wongnaiPhoto('e7422a98dbbe4d1795559532186d3b0c.jpg') }),
-      foodItem({ name: 'Crispy Cos Ros Cereal with Caesar Salad Flavor', thai: 'คอส อบกรอบ รสซีซ่าสลัด', price: 95, img: wongnaiPhoto('a1f69c13552f4dd2b09e3b51eff17bf1.jpg') })
-    ]
-  },
-  sandwich: {
-    label: 'Sandwich',
-    type: 'food',
-    note: 'แซนวิช และ สลัดผัก ทำสด',
-    items: [
-      foodItem({ name: 'CK Fresh Shredded Chicken Sandwich', thai: 'แซนวิชอกไก่ฉีก ทำสดใหม่', price: 99 })
-    ]
-  },
-  toast: {
-    label: 'Toast',
-    type: 'food',
-    note: 'ขนมปังปิ้ง',
-    items: [
-      foodItem({ name: 'BM Butter Milk Bread', thai: 'ปังเนยนม', price: 39, img: wongnaiPhoto('1f4e12252dec4cf4891a58b07ab061b4.jpg') }),
-      foodItem({ name: 'BS Butter Sugar Bread', thai: 'ปังเนยน้ำตาล', price: 39, img: wongnaiPhoto('9af3f3af232848b0954d87345be49194.jpg') }),
-      foodItem({ name: 'OV Ovaltine Volcano Bread', thai: 'ปังโอวันตินภูเขาไฟ', price: 55, img: wongnaiPhoto('6e72f648018846eaabf0591aa11002d1.jpg') }),
-      foodItem({ name: 'NU Nutella Bread', thai: 'ปังนูเทลล่า', price: 69, img: wongnaiPhoto('c8ca6265dac141e3949ef1e1b70e775c.jpg') }),
-      foodItem({ name: 'CP Spicy Pork and Chicken Floss Bread', thai: 'ปังพริกเผาหมู+ไก่หยอง', price: 55 }),
-      foodItem({ name: 'PJ Pandan Custard Bread', thai: 'ปังสังขยาใบเตย', price: 69, img: wongnaiPhoto('84aba55d24514492a958584498bccf69.jpg') }),
-      foodItem({ name: "TJ's Thai Tea Custard Bread", thai: 'ปังสังขยาชาไทย', price: 69, img: wongnaiPhoto('e763be4193a7467093444dd24fa3fe08.jpg') }),
-      foodItem({ name: 'PTB Peanut Butter Bread', thai: 'ปังเนยถั่ว', price: 69, img: wongnaiPhoto('5458012f457749f6bf4973f87caafb62.jpg') }),
-      foodItem({ name: 'NUB Nutella Banana Bread', thai: 'ปังนูเทลล่ากล้วย', price: 79, img: wongnaiPhoto('97c6304fc84c4fd5a206947c27268541.jpg') })
-    ]
-  },
-  bakery: {
-    label: 'Warm Baked Bakery - Hot Baked Bread',
-    type: 'food',
-    note: 'ขนมปังอบร้อน',
-    items: [
-      foodItem({ name: 'CHC Croissant Ham and Cheese', thai: 'ครัวซองต์ แฮมชีส', price: 129, img: wongnaiPhoto('ad072a7f060d43faa3f5e46d86ffe2a5.jpg') }),
-      foodItem({ name: 'CA Almond Croissant', thai: 'ครัวซองต์ อัลมอนด์', price: 129, img: wongnaiPhoto('d9c502fa92fb457bbfeccaa47cc3aee9.jpg') }),
-      foodItem({ name: 'CCP Croissant, Coffee, Pecan', thai: 'ครัวซองต์ กาแฟ พีแคน', price: 129, img: wongnaiPhoto('15c83c39b1bd4254b6a061b3757de885.jpg') }),
-      foodItem({ name: 'BN Brioche Nutella', thai: 'บริยอช นูเทลล่า', price: 129, img: wongnaiPhoto('20145d9e79ff459caeb00477cd23ab00.jpg') }),
-      foodItem({ name: 'DC Danish Cream Cheese', thai: 'เดนิช ครีมชีส', price: 119, img: wongnaiPhoto('da865cce0aa44a8bb525260e67c0bb88.jpg') }),
-      foodItem({ name: 'PAC Chocolate Bread', thai: 'ขนมปังช็อคโกแลต', price: 119, img: wongnaiPhoto('9b7dac7bc3dc43c58955090e767cdce3.jpg') }),
-      foodItem({ name: 'PAR Raisin Bread', thai: 'ขนมปังลูกเกด', price: 119, img: wongnaiPhoto('d8bf0488a5d24cbfa9798986590d72e3.jpg') }),
-      foodItem({ name: 'SP Shio Pan (Salted Bread)', thai: 'ชิโอะปัง ขนมปังเกลือ', price: 69, img: wongnaiPhoto('b6f943233333485185dcd914178d6634.jpg') }),
-      foodItem({ name: 'FB Fudge Brownies', thai: 'บราวนี่ฟัดจ์', price: 139, img: wongnaiPhoto('754585285c964eff9253aee2394fc290.jpg') }),
-      foodItem({ name: 'CP Plain Croissant', thai: 'ครัวซองต์ เพลน', price: 109, img: wongnaiPhoto('39f0e85955034115bd57b3e6f8cc1fa1.jpg') }),
-      foodItem({ name: 'CB Cinnamon Roll Butterfly', thai: 'ซินนามอนโรลผีเสื้อ', price: 129, img: wongnaiPhoto('7a7d022981c34722a8aa5c16a257c432.jpg') }),
-      foodItem({ name: 'ET Classic Egg Tart', thai: 'ทาร์ตไข่ คลาสสิค', price: 119, img: wongnaiPhoto('10424b6516254106ac58910b2e753270.jpg') })
-    ]
-  }
-};
-
-window.COCO_FEATURED = [
+window.COCO_MENU = [
   {
-    name: 'Thai Milk Tea Ice Flakes',
-    thai: 'ชาไทยนมเกล็ดน้ำแข็ง',
-    price: 99,
-    desc: 'One of the featured recommended items from the saved delivery menu.',
-    img: wongnaiPhoto('3c3ad580e15947d6b77dde8b2b24ed57.jpg'),
-    gradient: 'from-sand-100 via-white to-sand-200',
-    drink: '#D88446'
+    name: 'AM Americano',
+    category: 'coffee',
+    badge: 'Coffee',
+    desc: 'Clean espresso over water, bright and easy for an everyday cup.',
+    prices: [
+      { label: 'Hot', value: 69 },
+      { label: 'Iced', value: 89 }
+    ]
   },
   {
-    name: 'Coconut Smoothie with Fresh Milk',
-    thai: 'มะพร้าวปั่นนมสด',
-    price: 99,
-    desc: 'Fresh coconut blended smooth and served as one of the house staples.',
-    img: wongnaiPhoto('90023c76782142b38e0c0095fa6c4154.jpg'),
-    gradient: 'from-white via-coco-50 to-coco-100',
-    drink: '#F4ECDD'
+    name: 'Coconut Americano',
+    thai: 'อเมริกาโน่มะพร้าว',
+    category: 'coffee',
+    badge: 'Refreshing',
+    desc: 'A bright espresso pour over chilled coconut for a Bangkok heat reset.',
+    prices: [{ label: 'Iced', value: 119 }]
+  },
+  {
+    name: 'ES Espresso',
+    category: 'coffee',
+    badge: 'Coffee',
+    desc: 'Rich, compact espresso with a smooth finish.',
+    prices: [
+      { label: 'Hot', value: 59 },
+      { label: 'Iced', value: 99 }
+    ]
+  },
+  {
+    name: 'CP Cappuccino',
+    category: 'coffee',
+    badge: 'Coffee',
+    desc: 'Balanced espresso, milk, and foam for a classic cafe cup.',
+    prices: [
+      { label: 'Hot', value: 69 },
+      { label: 'Iced', value: 99 }
+    ]
+  },
+  {
+    name: 'LT Latte',
+    category: 'coffee',
+    badge: 'Coffee',
+    desc: 'Smooth espresso and milk, soft and easy to drink.',
+    prices: [
+      { label: 'Hot', value: 69 },
+      { label: 'Iced', value: 99 }
+    ]
+  },
+  {
+    name: 'Coco Latte / Coconut Latte Cream Foam',
+    thai: 'ลาเต้มะพร้าวครีมโฟม',
+    category: 'coffee',
+    badge: 'Coco latte',
+    desc: 'A creamy coconut latte finished with coconut cream foam.',
+    prices: [{ label: 'Iced', value: 119 }]
+  },
+  {
+    name: 'MC Mocha',
+    category: 'coffee',
+    badge: 'Coffee',
+    desc: 'Chocolate and espresso with a cozy rounded finish.',
+    prices: [
+      { label: 'Hot', value: 69 },
+      { label: 'Iced', value: 99 }
+    ]
   },
   {
     name: 'CB Cold Brew',
     thai: 'กาแฟสกัดเย็น',
-    price: 119,
-    desc: 'The updated cold brew item now shown at the current delivery-menu price.',
-    gradient: 'from-sand-100 via-white to-coco-100',
-    drink: '#3A2417'
+    category: 'coffee',
+    badge: 'Coffee',
+    desc: 'Slow, chilled coffee with a clean body and soft sweetness.',
+    prices: [{ label: 'Iced', value: 119 }]
   },
   {
-    name: 'LF Coconut Latte Cream Foam',
-    thai: 'ครีมโฟมลาเต้มะพร้าว',
+    name: 'CM Caramel Macchiato',
+    category: 'coffee',
+    badge: 'Coffee',
+    desc: 'Caramel, milk, and espresso layered for a mellow sweet cup.',
+    prices: [
+      { label: 'Hot', value: 99 },
+      { label: 'Iced', value: 119 }
+    ]
+  },
+  {
+    name: 'Americano Orange',
+    category: 'coffee',
+    badge: 'Citrus',
+    desc: 'Fresh orange and espresso for a bright afternoon lift.',
+    prices: [{ label: 'Iced', value: 119 }]
+  },
+  {
+    name: 'MT Matcha Green Tea',
+    category: 'tea',
+    badge: 'Matcha',
+    desc: 'A smooth matcha drink with a fresh green finish.',
+    prices: [
+      { label: 'Hot', value: 69 },
+      { label: 'Iced', value: 99 }
+    ]
+  },
+  {
+    name: 'Matcha Coconut Cream Foam',
+    thai: 'มัทฉะมะพร้าวครีมโฟม',
+    category: 'tea',
+    badge: 'Matcha',
+    desc: 'Earthy matcha softened with coconut cream foam.',
+    prices: [{ label: 'Iced', value: 119 }]
+  },
+  {
+    name: 'Thai Milk Tea',
+    thai: 'ชาไทยนม',
+    category: 'tea',
+    badge: 'Thai tea',
+    desc: 'Classic Thai milk tea, creamy and aromatic.',
+    prices: [
+      { label: 'Hot', value: 69 },
+      { label: 'Iced', value: 99 }
+    ]
+  },
+  {
+    name: 'Lemon Tea',
+    category: 'tea',
+    badge: 'Tea',
+    desc: 'Light lemon tea for an easy refreshing sip.',
+    prices: [
+      { label: 'Hot', value: 69 },
+      { label: 'Iced', value: 99 }
+    ]
+  },
+  {
+    name: 'Honey Lemon Tea',
+    category: 'tea',
+    badge: 'Tea',
+    desc: 'Honey lemon tea with a soft citrus sweetness.',
+    prices: [
+      { label: 'Hot', value: 69 },
+      { label: 'Iced', value: 99 }
+    ]
+  },
+  {
+    name: 'Iced Black Tea with Coconut',
+    thai: 'ชาดำเย็นมะพร้าว',
+    category: 'tea',
+    badge: 'Coconut',
+    desc: 'Black tea with coconut for a darker, refreshing cup.',
+    prices: [{ label: 'Iced', value: 119 }]
+  },
+  {
+    name: 'Coconut Smoothie with Fresh Milk',
+    thai: 'มะพร้าวปั่นนมสด',
+    category: 'smoothie',
+    badge: 'Best seller',
+    desc: 'Fresh coconut blended with milk into the signature creamy smoothie.',
+    img: wongnaiPhoto('90023c76782142b38e0c0095fa6c4154.jpg'),
+    prices: [{ label: 'Iced', value: 99 }]
+  },
+  {
+    name: 'Coconut Water',
+    thai: 'น้ำมะพร้าว',
+    category: 'smoothie',
+    badge: 'Fresh',
+    desc: 'Simple chilled coconut water when you want it clean and light.',
+    prices: [{ label: 'Iced', value: 49 }]
+  },
+  {
+    name: 'Fresh Orange Blended',
+    category: 'smoothie',
+    badge: 'Fruit',
+    desc: 'Fresh orange blended into a bright frozen drink.',
+    prices: [{ label: 'Iced', value: 99 }]
+  },
+  {
+    name: 'Fresh Lemon Blended',
+    category: 'smoothie',
+    badge: 'Fruit',
+    desc: 'A tart, icy lemon blend for warm Bangkok afternoons.',
+    prices: [{ label: 'Iced', value: 99 }]
+  },
+  {
+    name: 'Thai Milk Tea Ice Flakes',
+    thai: 'ชาไทยนมเกล็ดน้ำแข็ง',
+    category: 'slushy',
+    badge: 'Refreshing',
+    desc: 'Thai milk tea served as soft ice flakes, creamy and cooling.',
+    img: wongnaiPhoto('3c3ad580e15947d6b77dde8b2b24ed57.jpg'),
+    prices: [{ label: 'Iced', value: 99 }]
+  },
+  {
+    name: 'Butterfly Pea Lemon Soda Ice Flakes',
+    thai: 'อัญชันมะนาวโซดาเกล็ดน้ำแข็ง',
+    category: 'slushy',
+    badge: 'Soda',
+    desc: 'A colorful butterfly pea lemon soda slushy with a crisp finish.',
+    img: wongnaiPhoto('82e32df6565f432386c72ef206b3d58b.jpg'),
+    prices: [{ label: 'Iced', value: 99 }]
+  },
+  {
+    name: 'Lod Chong Wat Chet',
+    category: 'slushy',
+    badge: 'Thai dessert',
+    desc: 'A Thai dessert drink with coconut milk sweetness and chilled texture.',
+    img: wongnaiPhoto('3cb9c9fb4e8349c6a924a84c25cc17b0.jpg'),
+    prices: [{ label: 'Iced', value: 89 }]
+  },
+  {
+    name: 'Coconut Ice Cream',
+    thai: 'ไอศกรีมมะพร้าว',
+    category: 'ice-cream',
+    badge: 'Dessert',
+    desc: 'Creamy coconut ice cream, simple and refreshing.',
+    img: wongnaiPhoto('d5499177cc914c9390478b6179dbdc08.jpg'),
+    price: 89
+  },
+  {
+    name: 'Gelato Malt Biscuit Cookie',
+    category: 'ice-cream',
+    badge: 'Gelato',
+    desc: 'Malt biscuit gelato with a cookie-style finish.',
+    price: 79
+  },
+  {
+    name: 'Gelato Yogurt Jelly',
+    category: 'ice-cream',
+    badge: 'Gelato',
+    desc: 'A light yogurt gelato with jelly texture.',
+    price: 79
+  },
+  {
+    name: 'MI Matcha Ice Cream',
+    category: 'ice-cream',
+    badge: 'Matcha',
+    desc: 'Matcha ice cream for green tea lovers.',
+    price: 79
+  },
+  {
+    name: 'Coconut Milk Pudding',
+    thai: 'พุดดิ้งมะพร้าวนมสด',
+    category: 'dessert',
+    badge: 'Coconut',
+    desc: 'Soft coconut milk pudding with a gentle creamy sweetness.',
+    price: 59
+  },
+  {
+    name: 'Grass Jelly Ovaltine Blended',
+    category: 'dessert',
+    badge: 'Dessert drink',
+    desc: 'Grass jelly and Ovaltine blended into a nostalgic cold treat.',
+    img: wongnaiPhoto('bd6e7aaa53594e0390b955c5fe1b3970.jpg'),
+    price: 89
+  },
+  {
+    name: 'Fudge Brownies',
+    category: 'dessert',
+    badge: 'Chocolate',
+    desc: 'Dense chocolate brownies for a richer cafe bite.',
+    img: wongnaiPhoto('754585285c964eff9253aee2394fc290.jpg'),
+    price: 139
+  },
+  {
+    name: 'Classic Egg Tart',
+    category: 'dessert',
+    badge: 'Pastry',
+    desc: 'Golden custard tart with a classic bakery finish.',
+    img: wongnaiPhoto('10424b6516254106ac58910b2e753270.jpg'),
+    price: 119
+  },
+  {
+    name: 'CK Fresh Shredded Chicken Sandwich',
+    category: 'sandwich',
+    badge: 'Fresh',
+    desc: 'Fresh shredded chicken sandwich for a light savory stop.',
+    price: 99
+  },
+  {
+    name: 'BM Butter Milk Bread',
+    category: 'toast',
+    badge: 'Toast',
+    desc: 'Buttery milk bread, toasted warm.',
+    img: wongnaiPhoto('1f4e12252dec4cf4891a58b07ab061b4.jpg'),
+    price: 39
+  },
+  {
+    name: 'BS Butter Sugar Bread',
+    category: 'toast',
+    badge: 'Toast',
+    desc: 'Crisp toast with butter and sugar.',
+    img: wongnaiPhoto('9af3f3af232848b0954d87345be49194.jpg'),
+    price: 39
+  },
+  {
+    name: 'Ovaltine Volcano Bread',
+    category: 'toast',
+    badge: 'Sweet',
+    desc: 'Ovaltine-topped toast with a playful dessert feel.',
+    img: wongnaiPhoto('6e72f648018846eaabf0591aa11002d1.jpg'),
+    price: 55
+  },
+  {
+    name: 'Nutella Banana Bread',
+    category: 'toast',
+    badge: 'Sweet',
+    desc: 'Nutella and banana on warm toast.',
+    img: wongnaiPhoto('97c6304fc84c4fd5a206947c27268541.jpg'),
+    price: 79
+  },
+  {
+    name: 'Pandan Custard Bread',
+    category: 'toast',
+    badge: 'Thai flavor',
+    desc: 'Warm bread with pandan custard.',
+    img: wongnaiPhoto('84aba55d24514492a958584498bccf69.jpg'),
+    price: 69
+  },
+  {
+    name: 'Thai Tea Custard Bread',
+    category: 'toast',
+    badge: 'Thai tea',
+    desc: 'Warm toast with Thai tea custard.',
+    img: wongnaiPhoto('e763be4193a7467093444dd24fa3fe08.jpg'),
+    price: 69
+  },
+  {
+    name: 'Ham & Cheese Croissant',
+    category: 'bakery',
+    badge: 'Savory',
+    desc: 'Warm croissant with ham and cheese.',
+    img: wongnaiPhoto('ad072a7f060d43faa3f5e46d86ffe2a5.jpg'),
+    price: 129
+  },
+  {
+    name: 'Almond Croissant',
+    category: 'bakery',
+    badge: 'Bakery',
+    desc: 'Flaky almond croissant for a premium cafe bite.',
+    img: wongnaiPhoto('d9c502fa92fb457bbfeccaa47cc3aee9.jpg'),
+    price: 129
+  },
+  {
+    name: 'Croissant, Coffee, Pecan',
+    category: 'bakery',
+    badge: 'Bakery',
+    desc: 'Coffee and pecan notes in a flaky croissant.',
+    img: wongnaiPhoto('15c83c39b1bd4254b6a061b3757de885.jpg'),
+    price: 129
+  },
+  {
+    name: 'Brioche Nutella',
+    category: 'bakery',
+    badge: 'Sweet',
+    desc: 'Soft brioche with Nutella.',
+    img: wongnaiPhoto('20145d9e79ff459caeb00477cd23ab00.jpg'),
+    price: 129
+  },
+  {
+    name: 'Danish Cream Cheese',
+    category: 'bakery',
+    badge: 'Bakery',
+    desc: 'A cream cheese Danish for a soft pastry pairing.',
+    img: wongnaiPhoto('da865cce0aa44a8bb525260e67c0bb88.jpg'),
+    price: 119
+  },
+  {
+    name: 'Plain Croissant',
+    category: 'bakery',
+    badge: 'Classic',
+    desc: 'Classic plain croissant, warm and flaky.',
+    img: wongnaiPhoto('39f0e85955034115bd57b3e6f8cc1fa1.jpg'),
+    price: 109
+  },
+  {
+    name: 'Cinnamon Roll Butterfly',
+    category: 'bakery',
+    badge: 'Bakery',
+    desc: 'A cinnamon roll with a pretty butterfly shape.',
+    img: wongnaiPhoto('7a7d022981c34722a8aa5c16a257c432.jpg'),
+    price: 129
+  }
+];
+
+window.COCO_FEATURED = [
+  {
+    name: 'Coconut Smoothie with Fresh Milk',
+    thai: 'มะพร้าวปั่นนมสด',
+    category: 'Smoothie',
+    price: 99,
+    badge: 'Best seller',
+    desc: 'Fresh coconut blended with milk for the most-loved Coco Addict sip.',
+    img: wongnaiPhoto('90023c76782142b38e0c0095fa6c4154.jpg')
+  },
+  {
+    name: 'Coco Latte / Coconut Latte Cream Foam',
+    thai: 'ลาเต้มะพร้าวครีมโฟม',
+    category: 'Coffee',
     price: 119,
-    desc: 'A richer latte finish with coconut cream foam from the updated menu.',
-    gradient: 'from-coco-50 via-white to-sand-100',
-    drink: '#C9A679'
+    badge: 'Coco latte',
+    desc: 'Creamy espresso, coconut notes, and a soft coconut cream foam finish.'
+  },
+  {
+    name: 'Coconut Americano',
+    thai: 'อเมริกาโน่มะพร้าว',
+    category: 'Coffee',
+    price: 119,
+    badge: 'Refreshing',
+    desc: 'Bright espresso over chilled coconut for a clean tropical coffee.'
+  },
+  {
+    name: 'Thai Milk Tea Ice Flakes',
+    thai: 'ชาไทยนมเกล็ดน้ำแข็ง',
+    category: 'Slushy',
+    price: 99,
+    badge: 'Refreshing',
+    desc: 'Thai milk tea in soft ice flakes. Cozy flavor, icy finish.',
+    img: wongnaiPhoto('3c3ad580e15947d6b77dde8b2b24ed57.jpg')
+  },
+  {
+    name: 'CB Cold Brew',
+    thai: 'กาแฟสกัดเย็น',
+    category: 'Coffee',
+    price: 119,
+    badge: 'Coffee',
+    desc: 'Slow chilled coffee with a smooth body and clean finish.'
+  },
+  {
+    name: 'Coconut Ice Cream',
+    thai: 'ไอศกรีมมะพร้าว',
+    category: 'Ice Cream',
+    price: 89,
+    badge: 'Dessert',
+    desc: 'Simple, creamy coconut ice cream for a refreshing dessert stop.',
+    img: wongnaiPhoto('d5499177cc914c9390478b6179dbdc08.jpg')
   }
 ];
 
 window.COCO_GALLERY = [
-  { img: wongnaiPhoto('90023c76782142b38e0c0095fa6c4154.jpg'), label: 'Coconut Smoothie', bg: 'from-coco-50 to-coco-200', tall: true },
-  { img: wongnaiPhoto('3c3ad580e15947d6b77dde8b2b24ed57.jpg'), label: 'Thai Milk Tea Ice Flakes', bg: 'from-sand-100 to-sand-300' },
-  { img: wongnaiPhoto('97c6304fc84c4fd5a206947c27268541.jpg'), label: 'Nutella Banana Bread', bg: 'from-sand-100 to-sand-300' },
-  { img: wongnaiPhoto('ad072a7f060d43faa3f5e46d86ffe2a5.jpg'), label: 'Ham & Cheese Croissant', bg: 'from-coco-100 to-coco-200' },
-  { img: wongnaiPhoto('10424b6516254106ac58910b2e753270.jpg'), label: 'Classic Egg Tart', bg: 'from-sand-50 to-coco-100', tall: true },
-  { img: wongnaiPhoto('754585285c964eff9253aee2394fc290.jpg'), label: 'Fudge Brownies', bg: 'from-sand-100 to-sand-200' },
-  { img: wongnaiPhoto('3cb9c9fb4e8349c6a924a84c25cc17b0.jpg'), label: 'Lod Chong', bg: 'from-coco-100 to-sand-100' },
-  { img: wongnaiPhoto('d5499177cc914c9390478b6179dbdc08.jpg'), label: 'Coconut Ice Cream', bg: 'from-coco-100 to-sand-100' }
+  { label: 'Coconut smoothie', img: wongnaiPhoto('90023c76782142b38e0c0095fa6c4154.jpg'), tall: true },
+  { label: 'Thai milk tea ice flakes', img: wongnaiPhoto('3c3ad580e15947d6b77dde8b2b24ed57.jpg') },
+  { label: 'Nutella banana bread', img: wongnaiPhoto('97c6304fc84c4fd5a206947c27268541.jpg') },
+  { label: 'Ham & cheese croissant', img: wongnaiPhoto('ad072a7f060d43faa3f5e46d86ffe2a5.jpg') },
+  { label: 'Classic egg tart', img: wongnaiPhoto('10424b6516254106ac58910b2e753270.jpg'), tall: true },
+  { label: 'Fudge brownies', img: wongnaiPhoto('754585285c964eff9253aee2394fc290.jpg') },
+  { label: 'Lod Chong', img: wongnaiPhoto('3cb9c9fb4e8349c6a924a84c25cc17b0.jpg') },
+  { label: 'Coconut ice cream', img: wongnaiPhoto('d5499177cc914c9390478b6179dbdc08.jpg') }
 ];
 
 window.COCO_REVIEWS = [
   {
     name: 'Sebastien Legall',
-    meta: '7 reviews · 2 months ago',
+    meta: 'Google review',
     stars: 5,
     body: 'Sooo yummy and refreshing. Customer service friendly and chill/cozy vibe.',
-    tone: 'bg-coco-100'
+    tags: ['refreshing', 'cozy vibe']
   },
   {
-    name: 'Georgiana P.',
-    meta: 'Local Guide · 6 months ago',
+    name: 'Georgiana P',
+    meta: 'Google review',
     stars: 5,
-    body: 'Cozy and refreshing hidden gem between the parks with delicious ice cream and lovely staff.',
-    tone: 'bg-sand-100'
+    body: 'Cozy and refreshing hidden gem between the parks with delicious ice cream.',
+    tags: ['hidden gem', 'ice cream']
   },
   {
     name: 'Rhyme Steve',
-    meta: '1 review · 3 months ago',
+    meta: 'Google review',
     stars: 5,
-    body: 'Friendly staff and a fair price. The coconut smoothie is the best, a must try.',
-    tone: 'bg-coco-200'
-  },
-  {
-    name: 'Google Guest',
-    meta: 'Recent visitor',
-    stars: 5,
-    body: 'Great service and staff, would definitely come back again.',
-    tone: 'bg-sand-200'
+    body: 'Friendly staff and a fair price. The coconut smoothie is the best, a must try!',
+    tags: ['friendly staff', 'coconut smoothie']
   }
 ];
